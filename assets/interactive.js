@@ -75,13 +75,13 @@
     const overlay = document.createElement('div');
     overlay.className = 'themedo';
 
-    const fromBg = fromMode === 'light' ? '#ece4d6' : '#0a0a0c';
-    const toBg   = toMode === 'light'   ? '#ece4d6' : '#0a0a0c';
+    const fromBg = fromMode === 'light' ? '#fcfbf9' : '#0c0c0e';
+    const toBg   = toMode === 'light'   ? '#fcfbf9' : '#0c0c0e';
     overlay.style.setProperty('--__tile', fromBg);
     overlay.style.setProperty('--__tile-end', toBg);
 
-    /* Cyberpunk chromatic glitch palette */
-    const glitchPalette = ['#ff2d6d', '#5ec4b6', '#e8a44a', '#7db8d6', '#a88cb8', '#0e7566'];
+    /* Clean monochrome + sky-blue glitch palette (no green/pink) */
+    const glitchPalette = ['#ffffff', '#38bdf8', '#e2e8f0', '#94a3b8', '#0284c7', '#f8fafc'];
     const tiles = [];
     for (let i = 0; i < COLS * ROWS; i++) {
       const tile = document.createElement('div');
