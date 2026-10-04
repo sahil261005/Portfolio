@@ -6,7 +6,7 @@
    Instead: clean type hierarchy, subtle glass, corner accents, noise grain.
    --------------------------------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root,
 :root[data-theme="dark"] {
@@ -22,10 +22,10 @@
   --border-s:      rgba(255, 255, 255, 0.14);
   --border-hover:  rgba(255, 255, 255, 0.3);
 
-  /* --- text: neat black & white hierarchy --- */
+  /* --- text: neat black & white hierarchy (adityalogs contrast) --- */
   --fg:            #ffffff;
   --fg-soft:       #d4d4d8;
-  --fg-mute:       #a1a1aa;
+  --fg-mute:       #a3a3a3;
   --fg-dim:        #71717a;
 
   /* --- accent: electric sky blue (only for subtle active dots and badges) --- */
@@ -42,10 +42,10 @@
   --tl-pink:    #cbd5e1;
   --tl-muted:   #64748b;
 
-  /* --- type stacks --- */
-  --heading:    'Space Grotesk', system-ui, -apple-system, sans-serif;
-  --mono:       'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sans:       'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* --- type stacks: unified JetBrains Mono developer aesthetic --- */
+  --heading:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --mono:       'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --sans:       'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* --- motion --- */
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
@@ -103,10 +103,12 @@ html, body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.6;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
@@ -127,15 +129,28 @@ body::before {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
-a.link {
+a.link,
+.bio a,
+p a.link {
   color: var(--fg);
-  border-bottom: 1px solid var(--border-s);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: none;
+  transition: all 0.15s ease;
 }
-a.link:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+a.link:hover,
+.bio a:hover,
+p a.link:hover {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+strong, b {
+  color: var(--fg);
+  font-weight: 700;
 }
 
 .mono { font-family: var(--mono); }
@@ -173,9 +188,9 @@ body.is-loaded { opacity: 1; transition: opacity 0.5s ease 0.1s; }
 .brand__title {
   font-family: var(--heading);
   font-weight: 700;
-  font-size: 46px;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   color: var(--fg);
   cursor: pointer;
   display: inline-block;
@@ -741,10 +756,11 @@ body.is-loaded { opacity: 1; transition: opacity 0.5s ease 0.1s; }
 
 .brand__sub {
   margin: 6px 0 0;
-  font-size: 11.5px;
+  font-size: 13px;
+  font-family: var(--mono);
   color: var(--fg-mute);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
   padding: 0 44px 22px;
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -754,8 +770,8 @@ body.is-loaded { opacity: 1; transition: opacity 0.5s ease 0.1s; }
   line-height: 1.5;
 }
 .brand__sub-sep {
-  color: var(--accent);
-  opacity: 0.7;
+  color: var(--fg-dim);
+  opacity: 0.8;
 }
 
 .topbar__right { display: flex; align-items: center; gap: 20px; }
@@ -1015,16 +1031,17 @@ body.is-loaded { opacity: 1; transition: opacity 0.5s ease 0.1s; }
    BIO
    =========================================================================== */
 .bio {
-  font-family: var(--sans);
-  font-size: 14.5px;
-  color: var(--fg-soft);
-  line-height: 1.8;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--fg-mute);
+  line-height: 1.7;
   margin: 0 0 16px;
-  letter-spacing: 0.005em;
+  letter-spacing: -0.01em;
 }
-.bio strong {
+.bio strong,
+.bio b {
   color: var(--fg);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ===========================================================================
@@ -1314,14 +1331,14 @@ body.is-loaded { opacity: 1; transition: opacity 0.5s ease 0.1s; }
   position: relative;
 }
 .page-nav__item:hover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
   transform: translateX(3px);
-  box-shadow: 0 2px 10px var(--accent-glow);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 .page-nav__item.is-active {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
 }
 .page-nav__meta {
   display: flex;
@@ -1338,7 +1355,7 @@ body.is-loaded { opacity: 1; transition: opacity 0.5s ease 0.1s; }
   transition: color 0.2s ease;
 }
 .page-nav__item:hover .page-nav__route {
-  color: var(--accent);
+  color: var(--fg);
 }
 .page-nav__desc {
   font-size: 11px;
@@ -1353,7 +1370,7 @@ body.is-loaded { opacity: 1; transition: opacity 0.5s ease 0.1s; }
   padding-left: 8px;
 }
 .page-nav__item:hover .page-nav__arrow {
-  color: var(--accent);
+  color: var(--fg);
   transform: translateX(3px);
 }
 
