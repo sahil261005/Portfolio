@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sahil Pawar — software engineer</title>
+<meta name="description" content="Sahil Pawar — AI engineer with good taste in engineering. RAG, multi-agent LangGraph graphs, hybrid OCR-LLM pipelines. Pune, India." />
+<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0c0e'/%3E%3Cpath d='M4 24V8h2v14h6v2z M14 8h2v16h-2z M20 8h8v2h-6v4h6v2h-6v6h6v2h-8z' fill='%235b8cff'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="frame">
+  <div class="edge-rail edge-rail--left" aria-hidden="true"><div class="edge-rail__strip" id="railLeft"></div></div><div class="edge-rail edge-rail--right" aria-hidden="true"><div class="edge-rail__strip" id="railRight"></div></div>
+
+  <!-- HEADER (cursive + nav in one row) -->
+  <header class="topbar">
+    <a href="./index.html" class="brand__title" data-text="sahil pawar">sahil pawar<span class="brand__glitch-overlay"></span></a>
+    <div class="topbar__right">
+      <nav class="nav">
+        <a class="nav__link is-active" href="#about">about</a>
+        <a class="nav__link" href="#builds">builds</a>
+        <a class="nav__link" href="#journey">journey</a>
+      </nav>
+      <div class="theme-control">
+        <button class="theme-btn" id="themeBtn" aria-label="toggle theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+          </svg>
+        </button>
+        <span class="theme-hint mono" id="themeHint" role="status"></span>
+      </div>
+    </div>
+  </header>
+  <p class="brand__sub mono">
+    <span>ai engineer / backend developer</span>
+    <span class="brand__sub-sep" aria-hidden="true">·</span>
+    <span>trinity academy · be computer science 2027</span>
+  </p>
+
+  <main class="layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-main">
+
+      <!-- BIO -->
+      <section class="sect reveal" id="about">
+        <div class="sect__head">
+          <h2 class="sect__title mono" data-text="Bio">Bio</h2>
+        </div>
+
+        <p class="bio">
+          I’m an engineer who likes building <strong>LLM systems</strong> that don’t fall apart once real users touch them.
+          Most of my work sits between production retrieval pipelines, agentic workflows, and the dependable backend
+          infrastructure required to keep them deterministic.
+        </p>
+        <p class="bio">
+          Currently building AI products at <strong>Monsoonfish</strong>, with prior stints across
+          <a class="link" href="#journey">two other product teams</a>. When I’m off the clock, I’m usually deep-diving
+          into AI architectures, building things that actually solve problems rather than just look good in a demo, or
+          grinding <strong>LeetCode (Knight)</strong>.
+        </p>
+        <p class="bio">
+          Outside of code: football and the gym. Reach out on
+          <a class="link" href="https://github.com/sahil261005" target="_blank" rel="noopener">GitHub</a> or
+          <a class="link" href="https://linkedin.com/in/sahil-pawar" target="_blank" rel="noopener">LinkedIn</a>.
+        </p>
+      </section>
+
+      <div class="banner banner--home">
+        <img src="./assets/banner-original.png" alt="A lone figure perched on a cliff, gazing across a vast blue landscape — the banner image by Sahil" />
+      </div>
+
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="col-side">
+
+      <!-- top of the rail: open-for-hire pill + tz + social icons -->
+      <section class="sidecard reveal" id="reach">
+        <div class="reach-card">
+          <span class="reach-pill mono" id="reachPill">● open for hire · ai/backend</span>
+          <span class="reach-tz mono">IST (UTC+5:30)</span>
+          <div class="socials mono">
+            <a href="https://github.com/sahil261005" target="_blank" rel="noopener" aria-label="github"  title="github"><img src="./assets/icons/github.svg" alt="github" /></a>
+            <a href="https://linkedin.com/in/sahil-pawar" target="_blank" rel="noopener" aria-label="linkedin" title="linkedin"><img src="./assets/icons/linkedin.svg" alt="linkedin" /></a>
+            <a href="mailto:sahilrpawar3@gmail.com" aria-label="email" title="email"><img src="./assets/icons/gmail.svg" alt="email" /></a>
+            <a href="https://leetcode.com/u/sahil_2610" target="_blank" rel="noopener" aria-label="leetcode" title="leetcode"><img src="./assets/icons/leetcode.svg" alt="leetcode" /></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 highlights, in the exact order specified -->
+      <section class="sidecard reveal">
+        <div class="sidecard__head">
+          <span class="sidecard__label mono">Highlights</span>
+        </div>
+        <ol class="activity">
+          <li>
+            <span class="hi-num mono">01</span>
+            <span class="activity-msg">AI Product Intern @ <strong>Monsoonfish</strong></span>
+            <span class="activity-meta mono">2026</span>
+          </li>
+          <li>
+            <span class="hi-num mono">02</span>
+            <span class="activity-msg">Shipping applied AI</span>
+            <span class="activity-meta mono">3 projects</span>
+          </li>
+          <li>
+            <span class="hi-num mono">03</span>
+            <span class="activity-msg">LeetCode <strong>Knight</strong></span>
+            <span class="activity-meta mono">500+ dsa</span>
+          </li>
+          <li>
+            <span class="hi-num mono">04</span>
+            <span class="activity-msg">ACES <strong>Event Coordinator</strong></span>
+            <span class="activity-meta mono">100+ students</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="sidecard reveal">
+        <div class="sidecard__head">
+          <span class="sidecard__label mono">GitHub activity <a href="https://github.com/sahil261005" target="_blank" rel="noopener">↗</a></span>
+        </div>
+        <div class="heatmap heatmap--wide"><img src="./assets/heatmap.png" alt="GitHub activity heatmap" /></div>
+      </section>
+
+      <section class="sidecard reveal">
+        <div class="sidecard__head">
+          <span class="sidecard__label mono">Pages / Directory</span>
+        </div>
+        <nav class="page-nav" aria-label="Quick directory">
+          <a href="#about" class="page-nav__item">
+            <div class="page-nav__meta">
+              <span class="page-nav__route mono">/about</span>
+              <span class="page-nav__desc">bio + overview</span>
+            </div>
+            <span class="page-nav__arrow mono" aria-hidden="true">→</span>
+          </a>
+          <a href="#builds" class="page-nav__item">
+            <div class="page-nav__meta">
+              <span class="page-nav__route mono">/builds</span>
+              <span class="page-nav__desc">things i shipped</span>
+            </div>
+            <span class="page-nav__arrow mono" aria-hidden="true">→</span>
+          </a>
+          <a href="#journey" class="page-nav__item">
+            <div class="page-nav__meta">
+              <span class="page-nav__route mono">/journey</span>
+              <span class="page-nav__desc">career trajectory</span>
+            </div>
+            <span class="page-nav__arrow mono" aria-hidden="true">→</span>
+          </a>
+        </nav>
+      </section>
+
+    </aside>
+  </main>
+
+  <section class="page-section" id="builds" aria-labelledby="builds-title">
+    <div class="page-section__head">
+      <p class="section-kicker mono">02 / selected work</p>
+      <h2 id="builds-title" data-text="builds">builds</h2>
+    </div>
+    <div class="builds-content">
+      <article class="featured-card reveal" id="healthscribe">
+        <div class="featured-card__body">
+          <header class="featured-card__head">
+            <h3 class="featured-card__title"><span class="glyph">✦</span> HealthScribe <span class="featured-card__status mono">● shipping · 2026</span></h3>
+            <p class="featured-card__lede">a full-stack medical-records intelligence platform.</p>
+          </header>
+          <p class="featured-card__body-text">extracts and verifies handwritten prescriptions via a <strong>hybrid OCR pipeline</strong> (Sarvam AI + Gemini 2.5 Flash) and provides grounded historical Q&amp;A with <strong>allergy safety guardrails</strong>. swap to <strong>MMR retrieval</strong> in ChromaDB doubled clinical-category coverage and cut duplicate-context redundancy <strong>62% → 8%</strong>, validated via a Gemini-as-a-Judge framework.</p>
+          <ul class="numbered">
+            <li><span class="num">01</span><span>benchmark a hybrid OCR pipeline against a single-model baseline</span></li>
+            <li><span class="num">02</span><span>ship MMR-reranked RAG with eval harness on 20 Rx</span></li>
+            <li><span class="num">03</span><span>live allergy-drug conflict detection + QR health profile</span></li>
+          </ul>
+          <footer class="featured-card__foot mono"><span>python · django · fastapi · langchain · chromadb · gemini 2.5 flash · sarvam ai · supabase</span><a href="https://health-scribe-three.vercel.app" target="_blank" rel="noopener">live ↗</a></footer>
+        </div>
+        <div class="featured-card__shot"><img src="./assets/healthscribe-home.png" alt="HealthScribe homepage" /></div>
+      </article>
+
+      <article class="featured-card reveal" id="veriframe">
+        <div class="featured-card__body">
+          <header class="featured-card__head">
+            <h3 class="featured-card__title"><span class="glyph">▶</span> VeriFrame <span class="featured-card__status mono">● building · 2026</span></h3>
+            <p class="featured-card__lede">a multi-agent video forensics platform that detects AI-generated video.</p>
+          </header>
+          <p class="featured-card__body-text">orchestrates multi-agent forensics pipelines via <strong>LangGraph</strong> to analyze deepfake video artifacts. combines fine-tuned <strong>Vision Transformers (ViT)</strong> for spatial anomaly detection with <strong>OpenCV and MediaPipe</strong> for temporal landmark jitter and micro-expression drift. achieves <strong>87.5% detection accuracy</strong> with a mean analysis latency of <strong>3.63s/video</strong> on Groq-accelerated Llama 4 Scout.</p>
+          <ul class="numbered">
+            <li><span class="num">01</span><span>frame-level spatial artifact detection with fine-tuned Vision Transformer (ViT)</span></li>
+            <li><span class="num">02</span><span>temporal facial-landmark consistency &amp; micro-jitter tracking via MediaPipe</span></li>
+            <li><span class="num">03</span><span>Groq Llama 4 Scout synthesizer generating explainable per-frame audit logs</span></li>
+          </ul>
+          <footer class="featured-card__foot mono"><span>python · fastapi · langgraph · vit · opencv · mediapipe · groq</span><a href="https://veri-frame.vercel.app" target="_blank" rel="noopener">live ↗</a></footer>
+        </div>
+        <div class="featured-card__shot"><img src="./assets/project-veriframe.png" alt="VeriFrame UI mock" /></div>
+      </article>
+
+      <article class="featured-card reveal" id="repolens">
+        <div class="featured-card__body">
+          <header class="featured-card__head">
+            <h3 class="featured-card__title"><span class="glyph">▣</span> RepoLens <span class="featured-card__status mono">● live · 2026</span></h3>
+            <p class="featured-card__lede">retrieval-intelligence workbench for public github repositories.</p>
+          </header>
+          <p class="featured-card__body-text">builds an interactive codebase comprehension engine blending <strong>hybrid vector search</strong> (all-MiniLM-L6-v2) with <strong>weighted AST dependency graphs</strong>. features intent-based query routing, evidence confidence tiers, and a client-side <strong>“what-if” fusion slider</strong> that dynamically balances semantic similarity against call-graph proximity in sub-50ms.</p>
+          <ul class="numbered">
+            <li><span class="num">01</span><span>dual-index ingestion combining dense embeddings with AST call-graph topology</span></li>
+            <li><span class="num">02</span><span>intent router directing queries between architectural graphs &amp; raw docstrings</span></li>
+            <li><span class="num">03</span><span>interactive slider for live Reciprocal Rank Fusion (RRF) parameter tuning</span></li>
+          </ul>
+          <footer class="featured-card__foot mono"><span>python · fastapi · all-minilm-l6-v2 · numpy · github api · groq · sqlite · react</span><a href="https://github.com/sahil261005" target="_blank" rel="noopener">source ↗</a></footer>
+        </div>
+        <div class="featured-card__shot"><img src="./assets/project-repolens.png" alt="RepoLens UI mock" /></div>
+      </article>
+
+      <section class="sect reveal" id="more"><div class="sect__head"><h3 class="sect__title mono" data-text="More">More</h3></div><ul class="highlights"><li><span class="hi-tag">writing</span><span class="hi-text">internal Python + LangGraph tutorials at Innomatics. RAG patterns that survive production.</span></li><li><span class="hi-tag">open-source</span><span class="hi-text">a few small langgraph snippets on github — eval harnesses and re-rankers.</span></li><li><span class="hi-tag">dsa</span><span class="hi-text"><strong>LeetCode Knight · 500+ problems</strong>. weekly grind + study group with friends.</span></li></ul></section>
+    </div>
+  </section>
+
+  <section class="page-section page-section--journey" id="journey" aria-labelledby="journey-title">
+    <div class="page-section__head"><p class="section-kicker mono">03 / trajectory</p><h2 id="journey-title" data-text="journey">journey</h2></div>
+    <ol class="timeline">
+      <li class="tl tl--right tl--current" data-color="blue">
+        <div class="tl__date mono">2026 →</div>
+        <div class="tl__node"><span class="tl__node-pulse"></span></div>
+        <div class="tl__card">
+          <h3 class="tl__title tl__title--blue"><span class="tl__glyph" aria-hidden="true">◇</span>AI Product Intern <span class="tl__chip">current</span></h3>
+          <p class="tl__company mono">Monsoonfish · remote</p>
+          <p class="tl__period mono">internship · 2026 → present</p>
+          <p class="tl__desc">product-side LLM features. the way a customer meets the model, not the way a paper describes it.</p>
+        </div>
+      </li>
+      <li class="tl tl--left" data-color="orange">
+        <div class="tl__card">
+          <h3 class="tl__title tl__title--orange"><span class="tl__glyph" aria-hidden="true">⟁</span>Agentic AI Developer</h3>
+          <p class="tl__company mono">Innomatics Research Labs · remote</p>
+          <p class="tl__period mono">internship · 2026</p>
+          <p class="tl__desc">LangGraph + ChromaDB RAG pipelines, FastAPI backends with SQLAlchemy row-locking, 0.5-confidence HITL fail-safe.</p>
+        </div>
+        <div class="tl__node"></div>
+        <div class="tl__date mono">2026</div>
+      </li>
+      <li class="tl tl--right" data-color="green">
+        <div class="tl__date mono">2024 – 2025</div>
+        <div class="tl__node"></div>
+        <div class="tl__card">
+          <h3 class="tl__title tl__title--green"><span class="tl__glyph" aria-hidden="true">▣</span>Python Developer</h3>
+          <p class="tl__company mono">Axcentra · pune</p>
+          <p class="tl__period mono">internship · 2024 – 2025</p>
+          <p class="tl__desc">Django + DRF services, JWT auth, SQL backends, pytest suites. where i learned what production actually smells like.</p>
+        </div>
+      </li>
+      <li class="tl tl--left" data-color="pink">
+        <div class="tl__card">
+          <h3 class="tl__title tl__title--pink"><span class="tl__glyph" aria-hidden="true">◆</span>Event Coordinator @ <span>ACES</span></h3>
+          <p class="tl__company mono">ACES · Association of Computer Engineering Students</p>
+          <p class="tl__period mono">2024 → present · volunteered on the side of b.e.</p>
+          <p class="tl__desc">organised department-wide coding competitions for <strong>100+ students</strong>, coordinated technical workshops, ran intro sessions for freshers. started as a regular volunteer, ended up running the thing.</p>
+        </div>
+        <div class="tl__node"></div>
+        <div class="tl__date mono">2024 →</div>
+      </li>
+      <li class="tl tl--right" data-color="muted">
+        <div class="tl__date mono">2023 → 2027</div>
+        <div class="tl__node"></div>
+        <div class="tl__card">
+          <h3 class="tl__title tl__title--muted"><span class="tl__glyph" aria-hidden="true">░</span>B.E. Computer Science</h3>
+          <p class="tl__company mono">Trinity Academy of Engineering, SPPU · pune</p>
+          <p class="tl__period mono">undergrad · cgpa 8.51</p>
+          <p class="tl__desc">graduating <strong>may 2027</strong>. coursework in DSA, OS, distributed systems, machine learning.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Sahil Pawar</span>
+    <span class="mono"><a href="mailto:sahilrpawar3@gmail.com">sahilrpawar3@gmail.com</a> · pune, india</span>
+  </footer>
+</div>
+<script src="./assets/interactive.js"></script>
+</body>
+</html>
