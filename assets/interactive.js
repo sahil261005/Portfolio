@@ -80,8 +80,8 @@
     overlay.style.setProperty('--__tile', fromBg);
     overlay.style.setProperty('--__tile-end', toBg);
 
-    /* Clean monochrome + sky-blue glitch palette (no green/pink) */
-    const glitchPalette = ['#ffffff', '#38bdf8', '#e2e8f0', '#94a3b8', '#0284c7', '#f8fafc'];
+    /* Pure monochrome grayscale palette (zero colored tint) */
+    const glitchPalette = ['#ffffff', '#f4f4f5', '#e4e4e7', '#d4d4d8', '#a1a1aa', '#71717a'];
     const tiles = [];
     for (let i = 0; i < COLS * ROWS; i++) {
       const tile = document.createElement('div');
