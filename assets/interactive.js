@@ -571,6 +571,27 @@
     sections.forEach((section) => navObserver.observe(section));
   }
 
+  /* ---------- bio tabs (Default vs Long) ---------- */
+  const bioDefaultBtn = document.getElementById('bioDefaultBtn');
+  const bioLongBtn = document.getElementById('bioLongBtn');
+  const bioDefault = document.getElementById('bioDefault');
+  const bioLong = document.getElementById('bioLong');
+
+  if (bioDefaultBtn && bioLongBtn && bioDefault && bioLong) {
+    bioDefaultBtn.addEventListener('click', () => {
+      bioDefaultBtn.classList.add('is-active');
+      bioLongBtn.classList.remove('is-active');
+      bioDefault.style.display = 'block';
+      bioLong.style.display = 'none';
+    });
+    bioLongBtn.addEventListener('click', () => {
+      bioLongBtn.classList.add('is-active');
+      bioDefaultBtn.classList.remove('is-active');
+      bioDefault.style.display = 'none';
+      bioLong.style.display = 'block';
+    });
+  }
+
   /* ---------- page ready ---------- */
   document.body.classList.add('is-loaded');
 })();

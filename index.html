@@ -18,12 +18,19 @@
 
   <!-- HEADER (cursive + nav in one row) -->
   <header class="topbar">
-    <a href="./index.html" class="brand__title" data-text="sahil pawar">sahil pawar<span class="brand__glitch-overlay"></span></a>
+    <div class="brand-group">
+      <a href="./index.html" class="brand__title" data-text="sahil pawar">sahil pawar</a>
+      <p class="brand__sub mono">
+        <span>ai engineer / backend developer</span>
+        <span class="brand__sub-sep" aria-hidden="true">·</span>
+        <span>trinity academy · be computer science 2027</span>
+      </p>
+    </div>
     <div class="topbar__right">
       <nav class="nav">
-        <a class="nav__link is-active" href="#about">about</a>
-        <a class="nav__link" href="#builds">builds</a>
-        <a class="nav__link" href="#journey">journey</a>
+        <a class="nav__link is-active" href="./index.html">about</a>
+        <a class="nav__link" href="./builds.html">builds</a>
+        <a class="nav__link" href="./journey.html">journey</a>
         <a class="nav__link nav__link--resume" href="./assets/resume.pdf" target="_blank" rel="noopener noreferrer">resume ↗</a>
       </nav>
       <div class="theme-control">
@@ -40,11 +47,6 @@
       </div>
     </div>
   </header>
-  <p class="brand__sub mono">
-    <span>ai engineer / backend developer</span>
-    <span class="brand__sub-sep" aria-hidden="true">·</span>
-    <span>trinity academy · be computer science 2027</span>
-  </p>
 
   <main class="layout">
 
@@ -53,26 +55,52 @@
 
       <!-- BIO -->
       <section class="sect reveal" id="about">
-        <div class="sect__head">
+        <div class="sect__head has-tabs">
           <h2 class="sect__title mono" data-text="Bio">Bio</h2>
+          <div class="bio-tabs" role="tablist" aria-label="Bio length">
+            <button class="bio-tab is-active" id="bioDefaultBtn" type="button">Default</button>
+            <button class="bio-tab" id="bioLongBtn" type="button">Long</button>
+          </div>
         </div>
 
-        <p class="bio">
-          hi, i’m an <strong>ai engineer</strong> who likes building <strong>llm systems</strong> that don’t fall apart once real users touch them.
-          most of my work sits between production retrieval pipelines, agentic workflows, and the dependable backend
-          infrastructure required to keep them deterministic.
-        </p>
-        <p class="bio">
-          currently building ai products at <strong>monsoonfish</strong>, with prior stints across
-          <a class="link" href="#journey">two other product teams</a>. when i’m off the clock, i’m usually deep-diving
-          into ai architectures, building things that actually solve problems rather than just look good in a demo, or
-          grinding <strong>leetcode (knight)</strong>.
-        </p>
-        <p class="bio">
-          outside of code: football and the gym. reach out on
-          <a class="link" href="https://github.com/sahil261005" target="_blank" rel="noopener">github</a> or
-          <a class="link" href="https://linkedin.com/in/sahil-pawar" target="_blank" rel="noopener">linkedin</a>.
-        </p>
+        <div id="bioDefault" class="bio-content">
+          <p class="bio">
+            hi, i’m an <strong>ai engineer</strong> who likes building <strong>llm systems</strong> that don’t fall apart once real users touch them.
+            most of my work sits between production retrieval pipelines, agentic workflows, and the dependable backend
+            infrastructure required to keep them deterministic.
+          </p>
+          <p class="bio">
+            currently building ai products at <strong>monsoonfish</strong>, with prior stints across
+            <a class="link" href="./journey.html">two other product teams</a>. when i’m off the clock, i’m usually deep-diving
+            into ai architectures, building things that actually solve problems rather than just look good in a demo, or
+            grinding <strong>leetcode (knight)</strong>.
+          </p>
+          <p class="bio">
+            outside of code: football and the gym. reach out on
+            <a class="link" href="https://github.com/sahil261005" target="_blank" rel="noopener">github</a> or
+            <a class="link" href="https://linkedin.com/in/sahil-pawar" target="_blank" rel="noopener">linkedin</a>.
+          </p>
+        </div>
+
+        <div id="bioLong" class="bio-content" style="display: none;">
+          <p class="bio">
+            hi, i’m an <strong>ai engineer</strong> who likes building <strong>llm systems</strong> that don’t fall apart once real users touch them.
+            most of my work sits between production retrieval pipelines, agentic workflows, and the dependable backend
+            infrastructure required to keep them deterministic.
+          </p>
+          <p class="bio">
+            currently building ai products at <strong>monsoonfish</strong> as an AI Engineer intern, developing production agentic workflows and prompt evaluation harnesses. previously built at <strong>innomatics research labs</strong> (working on RAG systems, hybrid search, and vector embeddings) and <strong>axcentra tech</strong>. pursuing b.e. in computer science at trinity academy (class of 2027).
+          </p>
+          <p class="bio">
+            love building practical tools that actually solve problems. when i'm off the clock, i'm exploring multimodality, experimenting with fine-tuning transformers, or grinding <strong>leetcode (knight rating, 500+ problems solved)</strong>.
+          </p>
+          <p class="bio">
+            outside of code: football, gym, and exploring new tech. reach out on
+            <a class="link" href="https://github.com/sahil261005" target="_blank" rel="noopener">github</a>,
+            <a class="link" href="https://linkedin.com/in/sahil-pawar" target="_blank" rel="noopener">linkedin</a>, or
+            <a class="link" href="mailto:sahilrpawar3@gmail.com">email</a>.
+          </p>
+        </div>
       </section>
 
       <div class="banner banner--home">
