@@ -1,4 +1,17 @@
+# OS and System Files
 .DS_Store
 Thumbs.db
+
+# Python
 __pycache__/
 *.pyc
+
+# Local tooling & editor config
+.claude/
+
+# Development screenshots
+screenshot_*.png
+
+# Raw backup files
+original.html
+easter-egg-hand-raw.html

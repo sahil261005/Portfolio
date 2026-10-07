@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="/_next/static/media/GeistPixel_Circle.p.e967dc6b.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/media/GeistPixel_Grid.p.2192fce6.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/media/GeistPixel_Line.p.e7444037.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/media/GeistPixel_Square.p.31e87829.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/media/GeistPixel_Triangle.p.41e14d68.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/media/c825fd02acae0153-s.p.1692d83b.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/media/e41d5df559864f9e-s.p.380d09ea.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="preload" href="/_next/static/media/ppmondwest_regular-s.p.316fc172.woff2" as="font" crossorigin="" type="font/woff2" />
+    <link rel="stylesheet" href="/_next/static/chunks/1814b35af1e7d7a6.css" />
+    <title>Secret Gesture – The Scroll Roll</title>
+    <meta name="description" content="A hidden interaction." />
+    <link rel="icon" href="/favicon.ico?favicon.4be20880.ico" sizes="32x32" type="image/x-icon" />
+    <style>
+      body {
+        margin: 0;
+        background-color: black;
+        overflow-x: hidden;
+      }
+      .keep-going {
+        transition: opacity 0.2s ease-out;
+      }
+
+      #sparkles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+      #roll-caption { position: absolute; left: 0; right: 0; bottom: 17vh; z-index: 30; text-align: center; padding: 0 24px; pointer-events: none;
+        font-family: var(--font-mondwest, 'customFont', monospace); color: #f5f3eb; font-size: clamp(22px, 3.4vw, 44px); line-height: 1.15; letter-spacing: .01em;
+        text-shadow: 0 2px 0 #000, 0 0 6px #000, 0 0 24px rgba(0,0,0,.9); opacity: 0; transition: opacity .25s; }
+      #roll-caption .rc-caret { display: inline-block; width: .5em; height: .09em; margin-left: 4px; background: #4ade80; vertical-align: baseline; animation: rc-blink .7s steps(1) infinite; }
+      @keyframes rc-blink { 50% { opacity: 0; } }
+      #roll-progress { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); width: min(420px, 70vw); z-index: 60; display: flex; align-items: center; gap: 12px;
+        opacity: 0; transition: opacity .3s; pointer-events: none; mix-blend-mode: normal; }
+      #roll-progress.show { opacity: 1; }
+      .rp-track { flex: 1; height: 12px; border: 2px solid #f5f3eb; background: rgba(0,0,0,.55); padding: 2px; box-shadow: 0 0 0 2px rgba(0,0,0,.6); }
+      .rp-fill { height: 100%; width: 0%; background: repeating-linear-gradient(to right, #4ade80 0 6px, transparent 6px 8px); }
+      .rp-label { font: 700 12px/1 monospace; color: #f5f3eb; min-width: 3.2em; text-align: right; text-shadow: 0 1px 0 #000; }
+      @media (prefers-reduced-motion: reduce) { #sparkles { display: none; } #roll-caption .rc-caret { animation: none; } }
+    </style>
+  <style>div.fixed.bottom-0 > nav { transform: scale(1.35); transform-origin: bottom center; margin-bottom: 0.5rem; }</style></head>
+  <body class="instrument_serif_2c398422-module__pOELkq__variable raleway_da270856-module__URM3QG__variable customfont_5bea27ba-module__lHSsEa__variable geistpixelsquare_cf225766-module__40oJ9a__variable font-serif antialiased tracking-[0.02em]">
+    
+    <!-- Preloader Overlay -->
+    <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black text-theme-bg w-full h-full transition-opacity duration-500">
+      <div class="font-mondwest text-4xl mb-4 tracking-widest uppercase">Loading</div>
+      <div class="w-64 h-1 bg-theme-bg/20 rounded-full overflow-hidden mb-2">
+        <div id="loading-bar" class="h-full bg-theme-brand transition-all duration-75" style="width: 0%"></div>
+      </div>
+      <div id="loading-text" class="font-serif text-sm opacity-50 tabular-nums">0%</div>
+    </div>
+
+    <div id="roll-progress" aria-hidden="true">
+      <div class="rp-track"><div class="rp-fill"></div></div>
+      <span class="rp-label">0%</span>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="bg-black min-h-screen text-white selection:bg-white/20">
+      <main class="bg-black text-white min-h-screen font-serif selection:bg-white/20">
+        
+        <!-- Intro Hero -->
+        <section class="h-screen flex flex-col items-center justify-center relative z-10">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tighter">Secret Gesture</h1>
+          <p class="text-white/60 text-lg animate-bounce mt-8">Scroll to reveal</p>
+        </section>
+
+        <!-- 2000vh Scroll Canvas Container -->
+        <div id="scroll-container" class="h-[2000vh] relative">
+          <div id="sticky-frame" class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black transition-colors duration-300">
+            <canvas id="hand-canvas" class="block"></canvas>
+            <canvas id="sparkles" aria-hidden="true"></canvas>
+            <div id="roll-caption" aria-live="polite"><span class="rc-text"></span><span class="rc-caret"></span></div>
+            
+            <!-- Text Overlays -->
+            <div id="overlay-text" class="absolute inset-0 pointer-events-none flex flex-col items-center justify-center font-bold tracking-tighter leading-none mix-blend-difference z-20">
+              <div class="keep-going text-6xl md:text-9xl text-white block opacity-0">KEEP GOING</div>
+              <div class="keep-going text-6xl md:text-9xl text-white block opacity-0">KEEP GOING</div>
+              <div class="keep-going text-6xl md:text-9xl text-white block opacity-0">KEEP GOING</div>
+              <div class="keep-going text-6xl md:text-9xl text-white block opacity-0">KEEP GOING</div>
+              <div class="keep-going text-6xl md:text-9xl text-white block opacity-0">KEEP GOING</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Starring Section -->
+        <section class="min-h-screen w-full bg-theme-bg text-theme-brand overflow-hidden relative selection:bg-theme-brand selection:text-theme-bg flex flex-col items-center justify-center py-24">
+          <div class="max-w-4xl w-full px-6">
+            <div class="font-mondwest text-center text-xl md:text-2xl mb-16 tracking-[0.2em] opacity-60 uppercase">Starring</div>
+            <div class="space-y-4">
+              <a href="https://github.com/sahil261005" target="_blank" rel="noopener noreferrer" class="flex items-baseline justify-between py-6 border-b border-theme-brand/20 group hover:border-theme-brand transition-all duration-500 hover:px-4">
+                <span class="font-serif italic text-2xl md:text-4xl opacity-50 group-hover:opacity-100 transition-opacity duration-300">The Engineer</span>
+                <span class="font-mondwest text-5xl md:text-7xl uppercase tracking-tight group-hover:translate-x-2 transition-transform duration-300">GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/sahil-pawar-251187357/" target="_blank" rel="noopener noreferrer" class="flex items-baseline justify-between py-6 border-b border-theme-brand/20 group hover:border-theme-brand transition-all duration-500 hover:px-4">
+                <span class="font-serif italic text-2xl md:text-4xl opacity-50 group-hover:opacity-100 transition-opacity duration-300">The Professional</span>
+                <span class="font-mondwest text-5xl md:text-7xl uppercase tracking-tight group-hover:translate-x-2 transition-transform duration-300">LinkedIn</span>
+              </a>
+              <a href="https://leetcode.com/u/sahil_2610" target="_blank" rel="noopener noreferrer" class="flex items-baseline justify-between py-6 border-b border-theme-brand/20 group hover:border-theme-brand transition-all duration-500 hover:px-4">
+                <span class="font-serif italic text-2xl md:text-4xl opacity-50 group-hover:opacity-100 transition-opacity duration-300">The Problem Solver</span>
+                <span class="font-mondwest text-5xl md:text-7xl uppercase tracking-tight group-hover:translate-x-2 transition-transform duration-300">LeetCode</span>
+              </a>
+              <button class="relative group flex items-baseline justify-between w-full py-6 border-b border-theme-brand/20 group hover:border-theme-brand transition-all duration-500 hover:px-4 cursor-pointer text-left" aria-label="Copy Email">
+                <span class="font-serif italic text-2xl md:text-4xl opacity-50 group-hover:opacity-100 transition-opacity duration-300">The Connection</span>
+                <span class="font-mondwest text-5xl md:text-7xl uppercase tracking-tight group-hover:translate-x-2 transition-transform duration-300">Email</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Floating Navigation Bar -->
+    <div class="fixed font-serif tracking-[0.02em] bottom-0 left-0 right-0 z-50 flex justify-center p-4 pointer-events-none">
+      <nav class="pointer-events-auto flex items-center bg-theme-bg/90 backdrop-blur-lg border border-theme-brand/20 px-1 py-0.25 rounded-xl shadow-[0_4px_32px_0px_var(--color-theme-brand-glow),0_1px_4px_-1px_rgba(0,0,0,0.1)] ">
+        <div class="relative flex items-center gap-1">
+          <a class="relative z-10 px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap text-theme-brand hover:text-theme-brand/80" href="/#featured-builds">
+            <span class="relative">Build Log</span>
+          </a>
+          <a class="relative z-10 px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap text-theme-brand hover:text-theme-brand/80" href="/#quest-log">
+            <span class="relative">The Journey</span>
+          </a>
+          <a class="relative z-10 px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap bg-theme-brand text-theme-bg" href="/#secret-roll">
+            <span class="relative">Secret Roll</span>
+          </a>
+          <a class="relative z-10 px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap text-theme-brand hover:text-theme-brand/80" href="/#contact">
+            <span class="relative">The Info</span>
+          </a>
+        </div>
+        <div class="w-px h-5 bg-theme-brand/20 mx-1.5"></div>
+        <button id="music-btn" class="w-8 h-8 flex items-center justify-center rounded-lg text-theme-brand hover:bg-theme-brand hover:text-theme-bg transition-all hover:scale-90 active:scale-75 cursor-pointer" aria-label="Unmute music">
+          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 pointer-events-none" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+            <path d="M14.42 14.45a3 3 0 1 0 4.138 4.119"></path>
+            <path d="M9 17v-8m0 -4v-1h10v11"></path>
+            <path d="M12 8h7"></path>
+            <path d="M3 3l18 18"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Hand Canvas & Scroll Script -->
+    <script>
+      (function() {
+        const TOTAL_FRAMES = 288;
+        const images = [];
+        let loadedCount = 0;
+        let currentFrame = 0;
+
+        const preloader = document.getElementById('preloader');
+        const loadingBar = document.getElementById('loading-bar');
+        const loadingText = document.getElementById('loading-text');
+        const canvas = document.getElementById('hand-canvas');
+        const ctx = canvas.getContext('2d');
+        const scrollContainer = document.getElementById('scroll-container');
+        const stickyFrame = document.getElementById('sticky-frame');
+        const keepGoingEls = document.querySelectorAll('.keep-going');
+
+        // Prevent scrolling during preloading
+        document.body.style.overflow = 'hidden';
+
+        function updateLoading(loaded) {
+          const pct = Math.round((loaded / TOTAL_FRAMES) * 100);
+          if (loadingBar) loadingBar.style.width = pct + '%';
+          if (loadingText) loadingText.textContent = pct + '%';
+        }
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          drawFrame(currentFrame);
+        }
+
+        function drawFrame(frameIdx) {
+          if (!images[frameIdx] || !images[frameIdx].complete) return;
+          const img = images[frameIdx];
+          
+          const cw = canvas.width;
+          const ch = canvas.height;
+          const iw = img.width || 1920;
+          const ih = img.height || 1080;
+
+          const scale = Math.min(cw / iw, ch / ih);
+          const dw = iw * scale;
+          const dh = ih * scale;
+          const dx = (cw - dw) / 2;
+          const dy = (ch - dh) / 2;
+
+          ctx.clearRect(0, 0, cw, ch);
+          ctx.drawImage(img, 0, 0, iw, ih, dx, dy, dw, dh);
+        }
+
+        // Preload all 288 frames
+        const promises = [];
+        for (let i = 1; i <= TOTAL_FRAMES; i++) {
+          const img = new Image();
+          const p = new Promise(resolve => {
+            img.onload = () => {
+              loadedCount++;
+              updateLoading(loadedCount);
+              resolve();
+            };
+            img.onerror = () => {
+              loadedCount++;
+              updateLoading(loadedCount);
+              resolve();
+            };
+          });
+          img.src = '/images/hand/' + i + '.jpg';
+          images.push(img);
+          promises.push(p);
+        }
+
+        Promise.all(promises).then(() => {
+          // Preloading complete
+          setTimeout(() => {
+            if (preloader) {
+              preloader.style.opacity = '0';
+              setTimeout(() => {
+                preloader.style.display = 'none';
+                document.body.style.overflow = '';
+              }, 500);
+            }
+            resizeCanvas();
+            drawFrame(0);
+          }, 300);
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Scroll listener
+        window.addEventListener('scroll', () => {
+          if (!scrollContainer) return;
+          const rect = scrollContainer.getBoundingClientRect();
+          const containerHeight = scrollContainer.offsetHeight - window.innerHeight;
+          if (containerHeight <= 0) return;
+
+          // How far scrolled into container
+          const scrolled = -rect.top;
+          let progress = scrolled / containerHeight;
+          progress = Math.max(0, Math.min(1, progress));
+
+          // Background fade near end (from black to #f5f3eb)
+          if (progress > 0.85) {
+            const bgT = (progress - 0.85) / 0.15;
+            stickyFrame.style.backgroundColor = bgT > 0.5 ? '#f5f3eb' : '#000000';
+          } else {
+            stickyFrame.style.backgroundColor = '#000000';
+          }
+
+          // Frame mapping (starts animating after 0.10 progress)
+          if (progress >= 0.10) {
+            const frameProgress = (progress - 0.10) / 0.90;
+            const targetIdx = Math.min(TOTAL_FRAMES - 1, Math.floor(frameProgress * (TOTAL_FRAMES - 1)));
+            if (targetIdx !== currentFrame) {
+              currentFrame = targetIdx;
+              requestAnimationFrame(() => drawFrame(currentFrame));
+            }
+          } else {
+            if (currentFrame !== 0) {
+              currentFrame = 0;
+              requestAnimationFrame(() => drawFrame(0));
+            }
+          }
+
+          // "KEEP GOING" text pulses around progress 0.35 to 0.65
+          if (progress >= 0.30 && progress <= 0.60) {
+            const textAlpha = Math.sin(((progress - 0.30) / 0.30) * Math.PI);
+            keepGoingEls.forEach((el, idx) => {
+              el.style.opacity = (textAlpha * (1 - idx * 0.18)).toFixed(2);
+            });
+          } else {
+            keepGoingEls.forEach(el => el.style.opacity = '0');
+          }
+        }, { passive: true });
+
+        // Copy Email Button
+        const emailButtons = document.querySelectorAll('button[aria-label="Copy Email"]');
+        emailButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            navigator.clipboard.writeText('sahilrpawar3@gmail.com');
+            alert('Email copied to clipboard: sahilrpawar3@gmail.com');
+          });
+        });
+
+        // Ambient Music Toggle
+        const audio = new Audio('/music/hrsht.ogg');
+        audio.loop = true;
+        let isPlaying = false;
+        const musicBtn = document.getElementById('music-btn');
+        if (musicBtn) {
+          musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+              audio.pause();
+              isPlaying = false;
+              musicBtn.classList.remove('text-green-500');
+            } else {
+              audio.play().then(() => {
+                isPlaying = true;
+                musicBtn.classList.add('text-green-500');
+              }).catch(e => console.log('Audio autoplay prevented:', e));
+            }
+          });
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        const container = document.getElementById('scroll-container');
+        const capEl = document.getElementById('roll-caption');
+        const capText = capEl.querySelector('.rc-text');
+        const bar = document.getElementById('roll-progress');
+        const fill = bar.querySelector('.rp-fill');
+        const label = bar.querySelector('.rp-label');
+        const cv = document.getElementById('sparkles');
+        const g = cv.getContext('2d');
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const CAPTIONS = [
+          { a: 0.12, b: 0.28, t: 'Every build starts with a pair of hands.' },
+          { a: 0.30, b: 0.45, t: '94% accuracy did not happen by accident.' },
+          { a: 0.47, b: 0.62, t: 'Debugging at 2am. Shipping at 3.' },
+          { a: 0.66, b: 0.80, t: 'Almost there. One more scroll.' }
+        ];
+
+        let progress = 0, vel = 0, lastP = 0, lastT = performance.now();
+        function readProgress() {
+          const rect = container.getBoundingClientRect();
+          const h = container.offsetHeight - innerHeight;
+          if (h <= 0) return 0;
+          return Math.max(0, Math.min(1, -rect.top / h));
+        }
+
+        function updateCaption(p) {
+          const c = CAPTIONS.find(c => p >= c.a && p <= c.b);
+          if (!c) { capEl.style.opacity = 0; return; }
+          const span = c.b - c.a, k = (p - c.a) / span;
+          const n = Math.ceil(Math.min(1, k / 0.55) * c.t.length);
+          capText.textContent = c.t.slice(0, n);
+          capEl.style.opacity = k > 0.88 ? Math.max(0, (1 - k) / 0.12) : 1;
+        }
+
+        function onScroll() {
+          const now = performance.now();
+          progress = readProgress();
+          const dt = Math.max(16, now - lastT);
+          vel = vel * 0.7 + (Math.abs(progress - lastP) / dt * 1000) * 0.3;
+          lastP = progress; lastT = now;
+          const rect = container.getBoundingClientRect();
+          const inside = rect.top <= 0 && rect.bottom > innerHeight * 0.5 && progress < 0.97;
+          bar.classList.toggle('show', inside);
+          fill.style.width = (progress * 100).toFixed(1) + '%';
+          label.textContent = Math.round(progress * 100) + '%';
+          updateCaption(progress);
+        }
+        addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // pixel sparkles
+        const COLORS = ['#4ade80', '#97aa70', '#f5f3eb', '#4ade80'];
+        let W = 0, H = 0, parts = [];
+        function size() { W = cv.width = cv.clientWidth; H = cv.height = cv.clientHeight; }
+        addEventListener('resize', size); size();
+        function spawn(initial) {
+          const s = 4 + Math.floor(Math.random() * 3);
+          return { x: Math.random() * W, y: initial ? Math.random() * H : H + 10, s: s * 1,
+            vy: 12 + Math.random() * 28, drift: (Math.random() - 0.5) * 14, ph: Math.random() * 6.28,
+            c: COLORS[Math.floor(Math.random() * COLORS.length)], tw: 1 + Math.random() * 3 };
+        }
+        for (let i = 0; i < 64; i++) parts.push(spawn(true));
+        let prev = performance.now();
+        function loop(now) {
+          const dt = Math.min(0.05, (now - prev) / 1000); prev = now;
+          g.clearRect(0, 0, W, H);
+          const fade = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) / 0.07) : 1;
+          if (fade > 0) {
+            const boost = 1 + Math.min(vel * 9, 5);
+            g.globalAlpha = fade;
+            for (const p of parts) {
+              p.y -= p.vy * boost * dt;
+              p.ph += dt * p.tw;
+              p.x += (p.drift + Math.sin(p.ph) * 10) * dt;
+              if (p.y < -10) Object.assign(p, spawn(false));
+              g.globalAlpha = fade * (0.5 + 0.5 * Math.abs(Math.sin(p.ph)));
+              g.fillStyle = p.c;
+              g.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s);
+            }
+            g.globalAlpha = 1;
+          }
+          requestAnimationFrame(loop);
+        }
+        if (!reduce) requestAnimationFrame(loop);
+      })();
+    </script>
+  </body>
+</html>

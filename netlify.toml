@@ -1,0 +1,19 @@
+[[redirects]]
+  from = "/work-summary"
+  to = "/work-summary.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/easter-egg"
+  to = "/easter-egg.html"
+  status = 200
+
+[[redirects]]
+  from = "/easter-egg/hand"
+  to = "/easter-egg/hand.html"
+  status = 200
