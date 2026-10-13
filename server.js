@@ -23,6 +23,7 @@ const MIME_TYPES = {
   '.ttf': 'font/ttf',
   '.ogg': 'audio/ogg',
   '.mp3': 'audio/mpeg',
+  '.mp4': 'video/mp4',
   '.pdf': 'application/pdf',
 };
 
@@ -106,8 +107,30 @@ const server = http.createServer((req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
+    // video needs byte-range support so browsers (Safari especially) can play and seek
+    const range = req.headers.range;
+    if (range && ext === '.mp4') {
+      const m = /bytes=(\d*)-(\d*)/.exec(range);
+      const start = m && m[1] ? parseInt(m[1], 10) : 0;
+      const end = m && m[2] ? Math.min(parseInt(m[2], 10), stats.size - 1) : stats.size - 1;
+      if (start > end || start >= stats.size) {
+        res.writeHead(416, { 'Content-Range': `bytes */${stats.size}` });
+        res.end();
+        return;
+      }
+      res.writeHead(206, {
+        'Content-Type': contentType,
+        'Content-Range': `bytes ${start}-${end}/${stats.size}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': end - start + 1,
+      });
+      fs.createReadStream(filePath, { start, end }).pipe(res);
+      return;
+    }
+
     res.writeHead(200, {
       'Content-Type': contentType,
+      'Accept-Ranges': 'bytes',
       'Content-Length': stats.size,
       'Cache-Control': ext === '.html' || ext === '.svg' ? 'no-cache' : 'public, max-age=3600',
     });
