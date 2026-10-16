@@ -37,6 +37,59 @@
       .rp-track { flex: 1; height: 12px; border: 2px solid #f5f3eb; background: rgba(0,0,0,.55); padding: 2px; box-shadow: 0 0 0 2px rgba(0,0,0,.6); }
       .rp-fill { height: 100%; width: 0%; background: repeating-linear-gradient(to right, #4ade80 0 6px, transparent 6px 8px); }
       .rp-label { font: 700 12px/1 monospace; color: #f5f3eb; min-width: 3.2em; text-align: right; text-shadow: 0 1px 0 #000; }
+      #act2-canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; }
+      #act2-flash { position: absolute; inset: 0; background: #fffbe8; opacity: 0; pointer-events: none; z-index: 40; }
+      #act2-cap { position: absolute; left: 0; right: 0; bottom: 14vh; z-index: 30; text-align: center; padding: 0 24px; pointer-events: none;
+        font-family: var(--font-mondwest, 'customFont', monospace); color: #f5f3eb; font-size: clamp(20px, 3vw, 40px); line-height: 1.15;
+        text-shadow: 0 2px 0 #000, 0 0 6px #000, 0 0 24px rgba(0,0,0,.9); opacity: 0; }
+      #act2-cap .rc-caret { display: inline-block; width: .5em; height: .09em; margin-left: 4px; background: #4ade80; animation: rc-blink .7s steps(1) infinite; }
+      #act2-labels { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+      .a2-label { position: absolute; transform: translate(-50%, 0); text-align: center; white-space: nowrap; opacity: 0;
+        transition: opacity .35s, transform .35s cubic-bezier(.2,.8,.2,1); font-family: var(--font-mondwest, 'customFont', monospace); }
+      .a2-label.on { opacity: 1; transform: translate(-50%, 4px); }
+      .a2-label .yr { display: block; font: 700 11px/1 monospace; letter-spacing: .18em; color: #4ade80; margin-bottom: 5px; }
+      .a2-label .nm { display: block; font-size: clamp(16px, 1.7vw, 24px); color: #f5f3eb; line-height: 1.05; text-shadow: 0 2px 0 #000; }
+      .a2-label .sb { display: block; font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(13px, 1.2vw, 17px); color: rgba(245,243,235,.6); margin-top: 3px; }
+      .a2-label.next .nm { color: #4ade80; animation: rc-blink 1s steps(1) infinite; }
+      #act2-card { position: absolute; left: 50%; top: 13vh; z-index: 35; width: min(440px, calc(100vw - 40px)); padding: 22px 24px 18px;
+        transform: translate(-50%, 0) scale(var(--s, .6)); transform-origin: center top; opacity: 0; pointer-events: none;
+        background: rgba(12,14,24,.82); border: 3px solid #f5f3eb; box-shadow: 0 0 0 3px #0c0e18, 6px 6px 0 3px rgba(0,0,0,.45);
+        color: #f5f3eb; font: 14px/1.2 monospace; }
+      @media (max-width: 899px) { #act2-card { top: 6vh; } }
+      @media (min-width: 900px) { #act2-card { left: 6vw; top: 16vh; transform: scale(var(--s, .6)); transform-origin: left top; } }
+      .a2c-title { font-family: var(--font-mondwest, 'customFont', monospace); font-size: clamp(28px, 4vw, 40px); text-align: center; margin-bottom: 14px; color: #f6c87a; text-shadow: 0 3px 0 #7a3f1d; }
+      .a2c-row { display: flex; align-items: baseline; gap: 8px; padding: 4px 0; opacity: 0; transform: translateX(-8px); transition: opacity .2s, transform .2s; }
+      .a2c-row.on { opacity: 1; transform: none; }
+      .a2c-row i { flex: 1; border-bottom: 2px dotted rgba(245,243,235,.35); transform: translateY(-3px); }
+      .a2c-row b { color: #4ade80; font-variant-numeric: tabular-nums; }
+      .a2c-next b { animation: rc-blink 1s steps(1) infinite; }
+      @media (prefers-reduced-motion: reduce) { #act2-cap .rc-caret, .a2-label.next .nm, .a2c-next b { animation: none; } }
+      #pro-dust { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+      #pro-scroll { position: relative; width: min(560px, 88vw); z-index: 2; will-change: transform, opacity; }
+      .ps-rod { position: relative; z-index: 2; height: 26px; margin: 0 18px; border: 3px solid #4b3621;
+        background: linear-gradient(to bottom, #f7ead0 0 5px, #ead4a4 5px 13px, #d2b27a 13px 18px, #a8834c 18px 100%); }
+      .ps-rod::before, .ps-rod::after { content: ''; position: absolute; top: -9px; width: 15px; height: 38px; border: 3px solid #3a2616;
+        background: linear-gradient(to right, #8b5a2b 0 5px, #6b4020 5px 100%); }
+      .ps-rod::before { left: -21px; } .ps-rod::after { right: -21px; }
+      .ps-paper { position: relative; margin: -3px 30px; height: 0; overflow: hidden; background-color: #ead4a4;
+        border-left: 3px solid #b48a4e; border-right: 3px solid #b48a4e;
+        background-image: repeating-linear-gradient(to bottom, rgba(120,80,30,.07) 0 2px, transparent 2px 6px); }
+      .ps-inner { padding: 26px 26px 28px; color: #4b3621; font-family: var(--font-mondwest, 'customFont', monospace); }
+      .ps-l { position: relative; margin: 0 0 10px; }
+      .ps-l .ghost { visibility: hidden; }
+      .ps-l .typed { position: absolute; inset: 0; }
+      .ps-head { text-align: center; font-size: clamp(24px, 3.4vw, 34px); color: #7a2e1f; margin-bottom: 18px; }
+      .ps-line { font-size: clamp(16px, 2.1vw, 21px); line-height: 1.35; }
+      .ps-last { color: #7a2e1f; margin-top: 16px; }
+      .ps-caret { display: inline-block; width: .45em; height: .1em; background: #7a2e1f; margin-left: 3px; animation: rc-blink .7s steps(1) infinite; }
+      .ps-seal { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; z-index: 3;
+        background: #b23a2e; border: 3px solid #6e1f17; color: #f7ead0; font: 700 20px/40px monospace; text-align: center;
+        clip-path: polygon(25% 0, 75% 0, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0 75%, 0 25%); }
+      #pro-star { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; z-index: 3; opacity: 0;
+        background: #fffbe8; box-shadow: 0 0 0 4px rgba(74,222,128,.25), 0 0 28px 8px rgba(255,251,232,.45); }
+      #pro-hint { position: absolute; bottom: 10vh; left: 0; right: 0; text-align: center; font: 700 12px/1 monospace; letter-spacing: .3em;
+        color: rgba(245,243,235,.5); text-transform: uppercase; }
+      @media (prefers-reduced-motion: reduce) { .ps-caret { animation: none; } }
       @media (prefers-reduced-motion: reduce) { #sparkles { display: none; } #roll-caption .rc-caret { animation: none; } }
     </style>
   <style>div.fixed.bottom-0 > nav { transform: scale(1.35); transform-origin: bottom center; margin-bottom: 0.5rem; }</style></head>
@@ -66,8 +119,34 @@
           <p class="text-white/60 text-lg animate-bounce mt-8">Scroll to reveal</p>
         </section>
 
-        <!-- 2000vh Scroll Canvas Container -->
-        <div id="scroll-container" class="h-[2000vh] relative">
+        <!-- Prologue: the sealed scroll -->
+        <div id="prologue" class="relative" style="height:1000vh">
+          <div id="pro-stage" class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" style="background:#000">
+            <canvas id="pro-dust" aria-hidden="true"></canvas>
+            <div id="pro-scroll">
+              <div class="ps-rod"></div>
+              <div class="ps-paper">
+                <div class="ps-inner">
+                  <p class="ps-head ps-l" data-t="The Scroll of Sahil"></p>
+                  <p class="ps-line ps-l" data-t="In a land of demos that broke the moment real users arrived,"></p>
+                  <p class="ps-line ps-l" data-t="a builder took the quest nobody wanted:"></p>
+                  <p class="ps-line ps-l" data-t="not just make it work, but keep it working."></p>
+                  <p class="ps-line ps-l" data-t="Trained in the old arts of Django, retrieval and agents."></p>
+                  <p class="ps-line ps-l" data-t="Six hundred trials solved. One hackathon crown."></p>
+                  <p class="ps-line ps-l" data-t="But a scroll can only tell so much."></p>
+                  <p class="ps-line ps-l ps-last" data-t="The rest must be shown."></p>
+                </div>
+              </div>
+              <div class="ps-rod"></div>
+              <div class="ps-seal" aria-hidden="true">S</div>
+            </div>
+            <div id="pro-star" aria-hidden="true"></div>
+            <div id="pro-hint">Break the seal &middot; keep scrolling</div>
+          </div>
+        </div>
+
+        <!-- Hand scroll canvas container -->
+        <div id="scroll-container" class="relative" style="height:2800vh">
           <div id="sticky-frame" class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black transition-colors duration-300">
             <canvas id="hand-canvas" class="block"></canvas>
             <canvas id="sparkles" aria-hidden="true"></canvas>
@@ -81,6 +160,24 @@
               <div class="keep-going text-6xl md:text-9xl text-white block opacity-0">KEEP GOING</div>
               <div class="keep-going text-6xl md:text-9xl text-white block opacity-0">KEEP GOING</div>
             </div>
+          </div>
+        </div>
+
+        <!-- Act II: the star goes questing -->
+        <div id="act2" class="relative" style="height:2600vh">
+          <div id="act2-stage" class="sticky top-0 h-screen w-full overflow-hidden" style="background:#000">
+            <canvas id="act2-canvas" aria-hidden="true"></canvas>
+            <div id="act2-labels" aria-hidden="true"></div>
+            <div id="act2-cap" class="roll-cap" aria-live="polite"><span class="rc-text"></span><span class="rc-caret"></span></div>
+            <div id="act2-card" aria-hidden="true">
+              <div class="a2c-title">Quest Complete</div>
+              <div class="a2c-row"><span>Builds shipped</span><i></i><b data-n="2">0</b></div>
+              <div class="a2c-row"><span>Problems solved</span><i></i><b data-n="600" data-s="+">0</b></div>
+              <div class="a2c-row"><span>Daily users</span><i></i><b data-n="50" data-s="+">0</b></div>
+              <div class="a2c-row"><span>Hackathons won</span><i></i><b data-n="1">0</b></div>
+              <div class="a2c-row a2c-next"><span>Next quest</span><i></i><b>???</b></div>
+            </div>
+            <div id="act2-flash"></div>
           </div>
         </div>
 
@@ -231,6 +328,16 @@
 
         window.addEventListener('resize', resizeCanvas);
 
+        let targetFrame = 0, smoothFrame = 0;
+        const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        (function ease() {
+          requestAnimationFrame(ease);
+          smoothFrame += (targetFrame - smoothFrame) * (reduceMotion ? 1 : 0.12);
+          if (Math.abs(targetFrame - smoothFrame) < 0.05) smoothFrame = targetFrame;
+          const idx = Math.round(smoothFrame);
+          if (idx !== currentFrame) { currentFrame = idx; drawFrame(idx); }
+        })();
+
         // Scroll listener
         window.addEventListener('scroll', () => {
           if (!scrollContainer) return;
@@ -243,28 +350,8 @@
           let progress = scrolled / containerHeight;
           progress = Math.max(0, Math.min(1, progress));
 
-          // Background fade near end (from black to #f5f3eb)
-          if (progress > 0.85) {
-            const bgT = (progress - 0.85) / 0.15;
-            stickyFrame.style.backgroundColor = bgT > 0.5 ? '#f5f3eb' : '#000000';
-          } else {
-            stickyFrame.style.backgroundColor = '#000000';
-          }
-
-          // Frame mapping (starts animating after 0.10 progress)
-          if (progress >= 0.10) {
-            const frameProgress = (progress - 0.10) / 0.90;
-            const targetIdx = Math.min(TOTAL_FRAMES - 1, Math.floor(frameProgress * (TOTAL_FRAMES - 1)));
-            if (targetIdx !== currentFrame) {
-              currentFrame = targetIdx;
-              requestAnimationFrame(() => drawFrame(currentFrame));
-            }
-          } else {
-            if (currentFrame !== 0) {
-              currentFrame = 0;
-              requestAnimationFrame(() => drawFrame(0));
-            }
-          }
+          // Frame mapping (starts animating after 0.10 progress); the rAF loop below eases toward it
+          targetFrame = progress >= 0.10 ? Math.min(TOTAL_FRAMES - 1, (progress - 0.10) / 0.90 * (TOTAL_FRAMES - 1)) : 0;
 
           // "KEEP GOING" text pulses around progress 0.35 to 0.65
           if (progress >= 0.30 && progress <= 0.60) {
@@ -323,7 +410,7 @@
           { a: 0.12, b: 0.28, t: 'Every build starts with a pair of hands.' },
           { a: 0.30, b: 0.45, t: '94% accuracy did not happen by accident.' },
           { a: 0.47, b: 0.62, t: 'Debugging at 2am. Shipping at 3.' },
-          { a: 0.66, b: 0.80, t: 'Almost there. One more scroll.' }
+          { a: 0.66, b: 0.80, t: 'Don\'t stop now. The light is restless.' }
         ];
 
         let progress = 0, vel = 0, lastP = 0, lastT = performance.now();
@@ -349,11 +436,15 @@
           const dt = Math.max(16, now - lastT);
           vel = vel * 0.7 + (Math.abs(progress - lastP) / dt * 1000) * 0.3;
           lastP = progress; lastT = now;
-          const rect = container.getBoundingClientRect();
-          const inside = rect.top <= 0 && rect.bottom > innerHeight * 0.5 && progress < 0.97;
+          const pro = document.getElementById('prologue');
+          const act2 = document.getElementById('act2');
+          const start = pro.getBoundingClientRect().top;
+          const total = pro.offsetHeight + container.offsetHeight + act2.offsetHeight - innerHeight;
+          const overall = Math.max(0, Math.min(1, -start / total));
+          const inside = start <= 0 && act2.getBoundingClientRect().bottom > innerHeight * 0.5 && overall < 0.985;
           bar.classList.toggle('show', inside);
-          fill.style.width = (progress * 100).toFixed(1) + '%';
-          label.textContent = Math.round(progress * 100) + '%';
+          fill.style.width = (overall * 100).toFixed(1) + '%';
+          label.textContent = Math.round(overall * 100) + '%';
           updateCaption(progress);
         }
         addEventListener('scroll', onScroll, { passive: true });
@@ -393,6 +484,538 @@
           requestAnimationFrame(loop);
         }
         if (!reduce) requestAnimationFrame(loop);
+      })();
+    </script>
+    <script>
+      // Act II: the star leaves the hands, warps out, maps the journey, becomes a name,
+      // gets forged into a sword and strikes the ground at dawn. Everything is a pure
+      // function of scroll progress (q), so scrolling back up rewinds it cleanly.
+      (function () {
+        const sec = document.getElementById('act2');
+        if (!sec) return;
+        const cv = document.getElementById('act2-canvas');
+        const g = cv.getContext('2d');
+        const labelsEl = document.getElementById('act2-labels');
+        const cap = document.getElementById('act2-cap');
+        const capText = cap.querySelector('.rc-text');
+        const card = document.getElementById('act2-card');
+        const rows = [...card.querySelectorAll('.a2c-row')];
+        const flash = document.getElementById('act2-flash');
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+        const lerp = (a, b, t) => a + (b - a) * t;
+        const seg = (q, a, b) => clamp((q - a) / (b - a));
+        const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        const easeOut = t => 1 - Math.pow(1 - t, 3);
+        const easeIn = t => t * t * t;
+        const backOut = t => 1 + 2.70158 * Math.pow(t - 1, 3) + 1.70158 * Math.pow(t - 1, 2);
+        // staggered 0..1 inside [a,b]; each particle starts a little later based on d
+        const stag = (q, a, b, d) => ease(clamp((q - a - d * (b - a) * .45) / ((b - a) * .55)));
+        const hex = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+        const mix = (c1, c2, t) => [lerp(c1[0], c2[0], t), lerp(c1[1], c2[1], t), lerp(c1[2], c2[2], t)];
+        const css = c => `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`;
+        const ramp = (stops, f) => {
+          const x = clamp(f) * (stops.length - 1), i = Math.min(stops.length - 2, Math.floor(x));
+          return mix(stops[i], stops[i + 1], x - i);
+        };
+        let seed = 20261016;
+        const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+        const CREAM = hex('#f5f3eb'), WHITE = hex('#ffffff'), GREEN = hex('#4ade80'), MOSS = hex('#bfe08a');
+        const EMBER0 = hex('#fff2b0'), EMBER1 = hex('#ff9f43'), FIREFLY = hex('#c8f07a');
+        const NIGHT = ['#000000', '#05081a', '#0e1638'].map(hex);
+        const DAWN = ['#1d2b55', '#3d3b6e', '#7a4f7d', '#c4637a', '#ec8a5e', '#f6c87a'].map(hex);
+        const SUN0 = hex('#fff3c4'), SUN1 = hex('#ff9e5e');
+        const FAR0 = hex('#0b1712'), FAR1 = hex('#5b6b3a'), NEAR0 = hex('#050b07'), NEAR1 = hex('#2f3d17');
+        const GRASS0 = hex('#0d1a0f'), GRASS1 = hex('#7d9a3f');
+
+        const NODES = [
+          { yr: '2023', nm: 'Trinity Academy', sb: 'spawn point' },
+          { yr: '2024', nm: 'ACES', sb: 'party leader' },
+          { yr: 'NOV 2025', nm: 'Axcentra', sb: 'the Django dungeons' },
+          { yr: 'FEB 2026', nm: 'Innomatics', sb: 'agents unlocked' },
+          { yr: 'AUG 2026', nm: 'Monsoonfish', sb: 'shipping to real users' },
+          { yr: 'NEXT', nm: '???', sb: 'quest pending', next: true }
+        ];
+        const WIDE = [[.10, .66], [.27, .34], [.45, .60], [.62, .28], [.78, .56], [.90, .26]];
+        const TALL = [[.26, .78], [.72, .66], [.28, .52], [.72, .39], [.28, .25], [.70, .11]];
+        const CAPS = [
+          { a: .015, b: .16, t: 'Then the light went looking for a path.' },
+          { a: .52, b: .655, t: 'Pixel by pixel, a name.' },
+          { a: .67, b: .775, t: 'Forged into something that lasts.' }
+        ];
+
+        // particles: the first ACT become the name and the sword, the rest stay stars and later embers
+        const N = 2000, ACT = 1500, P = [];
+        for (let i = 0; i < N; i++) {
+          const a = rnd() * Math.PI * 2;
+          P.push({
+            sx: rnd() * 2 - 1, sy: rnd() * 2 - 1, z0: rnd(),
+            bx: rnd(), by: rnd() * .95, tw: rnd() * 6.283, ts: .6 + rnd() * 2.2, big: rnd() < .06,
+            d: rnd(), curl: (rnd() - .5) * 1.6,
+            ex: Math.cos(a), ey: -.25 - Math.abs(Math.sin(a)) * 1.25, ev: .25 + rnd() * .85,
+            tx: 0, ty: 0, tc: CREAM, tcs: '#f5f3eb', wx: 0, wy: 0, wv: 0, wc: CREAM, wcs: '#f5f3eb'
+          });
+        }
+
+        const labels = NODES.map(n => {
+          const el = document.createElement('div');
+          el.className = 'a2-label' + (n.next ? ' next' : '');
+          el.innerHTML = `<span class="yr">${n.yr}</span><span class="nm">${n.nm}</span><span class="sb">${n.sb}</span>`;
+          labelsEl.appendChild(el);
+          return el;
+        });
+
+        let W = 1, H = 1, HOR = 1, S = 1, SWORD_TOP = 0, DROP = 0, far = [], near = [], nodes = [];
+
+        function sampleText() {
+          const o = document.createElement('canvas');
+          o.width = W; o.height = H;
+          const c = o.getContext('2d', { willReadFrequently: true });
+          const font = s => `${s}px customFont, monospace`;
+          let fs = Math.floor(H * .32);
+          c.font = font(fs);
+          const mw = c.measureText('SAHIL').width;
+          if (mw > W * .84) { fs = Math.floor(fs * W * .84 / mw); c.font = font(fs); }
+          c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#fff';
+          c.fillText('SAHIL', W / 2, H * .45);
+          const d = c.getImageData(0, 0, W, H).data, pts = [];
+          let y0 = H, y1 = 0;
+          for (let y = 0; y < H; y += 2) for (let x = 0; x < W; x += 2) {
+            if (d[(y * W + x) * 4 + 3] > 110) { pts.push([x, y]); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+          }
+          pts.forEach(p => p.push(mix(CREAM, MOSS, Math.pow((p[1] - y0) / Math.max(1, y1 - y0), 1.6))));
+          return pts;
+        }
+
+        // u: -8.5..8.5 across, v: 0 (pommel) .. 54 (tip)
+        function swordAt(u, v) {
+          const au = Math.abs(u);
+          if (v < 0) return null;
+          if (v < 4) return au < 2.5 ? (v < 1.3 ? '#fbe7a1' : '#e0b84a') : null;
+          if (v < 12) return au < 1.5 ? (Math.floor(v) % 2 ? '#5a3418' : '#8a5a2e') : null;
+          if (v < 15) return au < 8.5 ? (au > 6.6 ? '#4ade80' : v < 13 ? '#f0cf6a' : '#b88a1e') : null;
+          if (v < 48) return au < 2.6 ? (au < .6 ? '#a9b8bf' : au > 1.9 ? '#ffffff' : '#e3eae6') : null;
+          if (v < 54) return au < 2.6 * (54 - v) / 6 ? '#eef2ef' : null;
+          return null;
+        }
+        function sampleSword() {
+          S = H * .55 / 54;
+          SWORD_TOP = Math.round(H * .4 - 27 * S);
+          DROP = HOR + 4 * S - (SWORD_TOP + 54 * S);
+          const cx = W / 2, pts = [];
+          for (let y = SWORD_TOP; y < SWORD_TOP + 54 * S; y++) {
+            for (let x = Math.floor(cx - 8.6 * S); x <= cx + 8.6 * S; x++) {
+              const v = (y - SWORD_TOP + .5) / S, c = swordAt((x + .5 - cx) / S, v);
+              if (c) pts.push([x, y, hex(c), v]);
+            }
+          }
+          return pts;
+        }
+
+        function assign(pts, fn) {
+          const n = pts.length;
+          if (!n) return;
+          const idx = Array.from({ length: ACT }, (_, k) => Math.floor(k * n / ACT));
+          for (let k = ACT - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [idx[k], idx[j]] = [idx[j], idx[k]]; }
+          for (let k = 0; k < ACT; k++) fn(P[k], pts[idx[k]]);
+        }
+
+        let lastW = 0, lastH = 0;
+        function setup() {
+          lastW = innerWidth; lastH = innerHeight;
+          const PX = innerWidth < 700 ? 3 : 4;
+          W = Math.ceil(innerWidth / PX); H = Math.ceil(innerHeight / PX);
+          cv.width = W; cv.height = H;
+          HOR = Math.round(H * .8);
+          far = new Float32Array(W); near = new Float32Array(W);
+          const c0 = Math.sin(.5 * 4.2 + 2);
+          for (let x = 0; x < W; x++) {
+            const u = x / W, mound = Math.exp(-Math.pow((u - .5) / .07, 2));
+            far[x] = Math.round(HOR - H * .07 - H * .04 * Math.sin(u * 6.1 + 1.3) - H * .02 * Math.sin(u * 15 + .4));
+            near[x] = Math.round(HOR + H * .04 * (Math.sin(u * 4.2 + 2) - c0) + H * .008 * Math.sin(u * 23) * (1 - mound) - H * .025 * mound);
+          }
+          assign(sampleText(), (p, t) => { p.tx = t[0]; p.ty = t[1]; p.tc = t[2]; p.tcs = css(t[2]); });
+          assign(sampleSword(), (p, t) => { p.wx = t[0]; p.wy = t[1]; p.wc = t[2]; p.wcs = css(t[2]); p.wv = t[3]; });
+          const layout = innerWidth / innerHeight < .9 ? TALL : WIDE;
+          nodes = layout.map(([u, v]) => [u * W, v * H]);
+          labels.forEach((el, k) => {
+            el.style.left = clamp(layout[k][0] * innerWidth, 80, innerWidth - 80) + 'px';
+            el.style.top = (layout[k][1] * innerHeight + 14) + 'px';
+          });
+        }
+
+        // ---- pixel drawing helpers (canvas is low-res, upscaled with image-rendering: pixelated)
+        function plus(x, y, arm, col, a) {
+          g.globalAlpha = a; g.fillStyle = col;
+          x = Math.round(x); y = Math.round(y);
+          g.fillRect(x - arm, y, arm * 2 + 1, 1);
+          g.fillRect(x, y - arm, 1, arm * 2 + 1);
+          if (arm >= 2) g.fillRect(x - 1, y - 1, 3, 3);
+        }
+        function disc(x, y, r) {
+          for (let dy = -r; dy <= r; dy++) {
+            const hw = Math.round(Math.sqrt(r * r - dy * dy));
+            g.fillRect(Math.round(x - hw), Math.round(y + dy), hw * 2, 1);
+          }
+        }
+        function ring(x, y, r, col, a, flat) {
+          g.globalAlpha = a; g.fillStyle = col;
+          const n = Math.max(12, Math.floor(r * 4));
+          for (let k = 0; k < n; k++) {
+            const th = k / n * 6.283;
+            g.fillRect(Math.round(x + Math.cos(th) * r), Math.round(y + Math.sin(th) * r * flat), 1, 1);
+          }
+        }
+        function dotted(a, b, frac, alpha) {
+          const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+          if (!len) return;
+          g.globalAlpha = alpha; g.fillStyle = '#4ade80';
+          for (let s = 0; s <= len * frac; s += 3) {
+            g.fillRect(Math.round(a[0] + (b[0] - a[0]) * s / len), Math.round(a[1] + (b[1] - a[1]) * s / len), 1, 1);
+          }
+        }
+        function headAt(f) {
+          const n = nodes.length - 1, x = f * n, k = Math.min(n - 1, Math.floor(x)), l = ease(clamp(x - k));
+          return [lerp(nodes[k][0], nodes[k + 1][0], l), lerp(nodes[k][1], nodes[k + 1][1], l), k, l];
+        }
+        let AX = 0, AY = 0;
+        function arc(x0, y0, x1, y1, e, curl) {
+          const dx = x1 - x0, dy = y1 - y0, k = Math.sin(Math.PI * e) * curl * .35;
+          AX = x0 + dx * e - dy * k; AY = y0 + dy * e + dx * k;
+        }
+
+        function caption(q) {
+          const c = CAPS.find(c => q >= c.a && q <= c.b);
+          if (!c) { cap.style.opacity = 0; return; }
+          const k = (q - c.a) / (c.b - c.a);
+          capText.textContent = c.t.slice(0, Math.ceil(Math.min(1, k / .55) * c.t.length));
+          cap.style.opacity = k > .88 ? Math.max(0, (1 - k) / .12) : 1;
+        }
+
+        const streaks = [new Path2D(), new Path2D(), new Path2D()];
+        function draw(q, t, vel, impactAge) {
+          const nightAmt = seg(q, .18, .45);
+          const dawn = ease(seg(q, .835, .95));
+          const impact = q >= .83, tau = q - .83;
+
+          // sky, in hard pixel bands
+          const B = 28;
+          g.globalAlpha = 1;
+          for (let b = 0; b < B; b++) {
+            const f = (b + .5) / B;
+            g.fillStyle = css(mix(mix(NIGHT[0], ramp(NIGHT, f), nightAmt), ramp(DAWN, f), dawn));
+            const y0 = Math.floor(b * HOR / B), y1 = b === B - 1 ? H : Math.floor((b + 1) * HOR / B);
+            g.fillRect(0, y0, W, y1 - y0);
+          }
+
+          // striped dawn sun rising behind the sword
+          if (dawn > 0) {
+            const R = Math.round(H * .15), sx = Math.round(W / 2);
+            const sy = Math.round(HOR + R * 1.1 - easeOut(seg(q, .84, .97)) * R * 2.1);
+            g.fillStyle = '#ffd59a';
+            for (let k = 3; k >= 1; k--) { g.globalAlpha = .12 * dawn; disc(sx, sy, Math.round(R + k * R * .22)); }
+            g.globalAlpha = dawn;
+            const band = Math.max(2, Math.round(R * .11));
+            for (let y = -R; y <= R; y++) {
+              if (y > R * .15 && Math.floor((y - R * .15) / band) % 2) continue;
+              const hw = Math.round(Math.sqrt(R * R - y * y));
+              g.fillStyle = css(mix(SUN0, SUN1, (y + R) / (2 * R)));
+              g.fillRect(sx - hw, sy + y, hw * 2, 1);
+            }
+          }
+
+          // stars: warp streaks first, settling into a still sky
+          const warpK = Math.sin(Math.PI * clamp(q / .2)) * (1 - seg(q, .14, .22));
+          const dz = .012 + .16 * warpK + Math.min(vel * .015, .12) * (1 - seg(q, .14, .24));
+          const travel = 2.4 * Math.pow(clamp(q / .22), 2) + t * .025;
+          const fz = Math.max(W, H) * .12, starA = 1 - dawn;
+          streaks.forEach((_, k) => { streaks[k] = new Path2D(); });
+          for (let i = 0; i < N; i++) {
+            const p = P[i];
+            if (i < ACT && q >= .52) continue;
+            if (i >= ACT && impact) continue;
+            const tw = (.3 + .6 * Math.abs(Math.sin(t * p.ts + p.tw))) * starA;
+            const bx = p.bx * W, by = p.by * H;
+            const e0 = stag(q, .15, .25, p.d);
+            if (e0 < 1) {
+              let z = p.z0 - travel; z -= Math.floor(z); z = .05 + z * .95;
+              const hx = W / 2 + p.sx / z * fz, hy = H / 2 + p.sy / z * fz;
+              const wa = clamp((1 - z) * 1.6);
+              if (e0 === 0 && dz > .03) {
+                const zt = z + dz;
+                const path = streaks[wa > .66 ? 2 : wa > .33 ? 1 : 0];
+                path.moveTo(hx, hy);
+                path.lineTo(W / 2 + p.sx / zt * fz, H / 2 + p.sy / zt * fz);
+              } else {
+                g.globalAlpha = lerp(wa, tw, e0); g.fillStyle = '#f5f3eb';
+                const s = z < .25 && e0 < .5 ? 2 : 1;
+                g.fillRect(Math.round(lerp(hx, bx, e0)), Math.round(lerp(hy, by, e0)), s, s);
+              }
+            } else {
+              g.globalAlpha = tw; g.fillStyle = p.big ? '#fffbe8' : '#d9d6cc';
+              g.fillRect(Math.round(bx), Math.round(by), p.big ? 2 : 1, p.big ? 2 : 1);
+            }
+          }
+          g.strokeStyle = '#f5f3eb'; g.lineWidth = 1;
+          streaks.forEach((path, k) => { g.globalAlpha = .3 + k * .3; g.stroke(path); });
+
+          // the journey, drawn as a constellation
+          const la = seg(q, .2, .26) * (1 - seg(q, .5, .545));
+          const f = seg(q, .25, .49), n = nodes.length - 1;
+          if (la > 0) {
+            const [, , hk, hl] = headAt(f);
+            for (let k = 0; k < hk; k++) dotted(nodes[k], nodes[k + 1], 1, la * .85);
+            dotted(nodes[hk], nodes[hk + 1], hl, la * .85);
+            nodes.forEach(([x, y], k) => {
+              const qr = .25 + k / n * .24, reached = q >= qr - 1e-4;
+              if (reached) {
+                plus(x, y, 2, k === n ? '#4ade80' : '#f5f3eb', la);
+                const rr = seg(q, qr, qr + .025);
+                if (rr > 0 && rr < 1) ring(x, y, 2 + rr * 14, '#4ade80', la * (1 - rr), 1);
+              } else plus(x, y, 1, '#f5f3eb', la * .35);
+              labels[k].classList.toggle('on', reached && la > .5);
+            });
+          } else labels.forEach(l => l.classList.remove('on'));
+
+          // the star the hands were holding
+          const heroA = seg(q, .005, .04) * (1 - seg(q, .5, .545));
+          if (heroA > 0) {
+            let hx = W / 2, hy = H / 2;
+            if (q > .16) { const m = ease(seg(q, .16, .24)); hx = lerp(hx, nodes[0][0], m); hy = lerp(hy, nodes[0][1], m); }
+            if (q >= .25) [hx, hy] = headAt(f);
+            const arm = q < .2 ? 2 + Math.round((1.5 + 1.5 * Math.sin(t * 5)) * clamp(q / .05)) : 3 + Math.round(Math.sin(t * 7));
+            g.fillStyle = '#4ade80'; g.globalAlpha = heroA * .18; disc(hx, hy, arm + 2);
+            plus(hx, hy, arm, '#fffbe8', heroA);
+          }
+
+          const hillA = seg(q, .7, .78);
+          if (hillA > 0) {
+            g.globalAlpha = hillA; g.fillStyle = css(mix(FAR0, FAR1, dawn));
+            for (let x = 0; x < W; x++) g.fillRect(x, far[x], 1, H - far[x]);
+          }
+
+          // the name, then the sword
+          if (q >= .52) {
+            let off = 0;
+            if (q >= .745 && q < .78) off = Math.round(Math.sin(t * 2.2) * 1.2);
+            if (q >= .78) {
+              const k = seg(q, .78, .83);
+              off = k < .4 ? -4 * S * easeOut(k / .4) : lerp(-4 * S, DROP, easeIn((k - .4) / .6));
+            }
+            const sweep = seg(q, .6, .665) * 1.5 - .25;
+            const glint = seg(q, .73, .78) * 66 - 6;
+            for (let i = 0; i < ACT; i++) {
+              const p = P[i];
+              const e2 = q >= .665 ? stag(q, .665, .745, p.d) : 0;
+              let col, a = 1, sz = 2;
+              if (e2 === 0) {
+                const e1 = stag(q, .52, .63, p.d);
+                arc(p.bx * W, p.by * H, p.tx, p.ty, e1, p.curl);
+                if (e1 >= 1) {
+                  const sh = Math.exp(-Math.pow(p.tx / W - sweep, 2) * 90);
+                  col = sh > .05 ? css(mix(p.tc, WHITE, sh)) : p.tcs;
+                } else {
+                  col = css(mix(CREAM, p.tc, e1));
+                  a = lerp(.3 + .6 * Math.abs(Math.sin(t * p.ts + p.tw)), 1, e1);
+                  sz = e1 > .5 ? 2 : 1;
+                }
+              } else {
+                arc(p.tx, p.ty, p.wx, p.wy + off, e2, -p.curl);
+                col = e2 >= 1 ? (Math.abs(p.wv - glint) < 2.5 ? '#ffffff' : p.wcs) : css(mix(p.tc, p.wc, e2));
+              }
+              g.globalAlpha = a; g.fillStyle = col;
+              g.fillRect(Math.round(AX), Math.round(AY), sz, sz);
+            }
+          }
+
+          if (hillA > 0) {
+            g.globalAlpha = hillA; g.fillStyle = css(mix(NEAR0, NEAR1, dawn));
+            for (let x = 0; x < W; x++) g.fillRect(x, near[x], 1, H - near[x]);
+            g.fillStyle = css(mix(GRASS0, GRASS1, dawn));
+            for (let x = 0; x < W; x++) {
+              const h = (x * 73 + 11) % 9;
+              g.fillRect(x, near[x], 1, 1);
+              if (h < 3) g.fillRect(x, near[x] - 1 - (h === 0 ? 1 : 0), 1, h === 0 ? 2 : 1);
+            }
+          }
+
+          if (impact) {
+            const ix = W / 2, iy = HOR - H * .03;
+            if (tau < .05) {
+              const k = seg(tau, 0, .05), r = 4 + easeOut(k) * W * .6;
+              ring(ix, iy, r, '#fff2b0', (1 - k) * .9, .22);
+              ring(ix, iy, r * .7, '#ffb347', (1 - k) * .6, .22);
+            }
+            // the burst: most embers burn out, every fourth one stays as a firefly
+            const k = 1 - Math.exp(-tau * 40), hot = 1 - seg(tau, 0, .03);
+            for (let i = ACT; i < N; i++) {
+              const p = P[i], keep = i % 4 === 0;
+              const fade = keep ? 1 : 1 - seg(tau, .015, .06);
+              if (fade <= 0) continue;
+              const wob = k * (keep ? 1 : .3);
+              const x = ix + p.ex * p.ev * W * .5 * k + Math.sin(t * 1.3 + p.tw) * 4 * wob;
+              const y = iy + p.ey * p.ev * H * .55 * k + Math.sin(t * .9 + p.ts * 3) * 3 * wob;
+              const fly = keep && hot < .5;
+              g.globalAlpha = fade * (fly ? .35 + .65 * Math.abs(Math.sin(t * p.ts * 1.4 + p.tw)) : 1);
+              g.fillStyle = css(fly ? mix(FIREFLY, GREEN, .5 + .5 * Math.sin(p.tw)) : mix(EMBER1, EMBER0, hot));
+              const s = hot > .6 ? 2 : 1;
+              g.fillRect(Math.round(x), Math.round(y), s, s);
+            }
+          }
+
+          // fade into the cream credits below
+          const cf = seg(q, .955, .995);
+          if (cf > 0) { g.globalAlpha = cf; g.fillStyle = '#f5f3eb'; g.fillRect(0, 0, W, H); }
+          g.globalAlpha = 1;
+
+          // impact flash + shake are timed from the moment of impact, so parking the scroll there doesn't freeze them
+          const fl = impactAge >= 0 ? clamp(1 - impactAge / .6) : 0;
+          flash.style.opacity = (fl * fl * (reduce ? .35 : .95)).toFixed(3);
+          const sh = !reduce && impactAge >= 0 ? clamp(1 - impactAge / .45) * 7 : 0;
+          cv.style.transform = sh > .3 ? `translate(${Math.round(Math.sin(t * 90) * sh)}px,${Math.round(Math.cos(t * 77) * sh)}px)` : '';
+
+          caption(q);
+
+          const co = seg(q, .865, .88) * (1 - seg(q, .94, .955));
+          card.style.opacity = co;
+          card.style.setProperty('--s', (.6 + .4 * backOut(seg(q, .865, .885))).toFixed(3));
+          rows.forEach((r, k) => {
+            const s = .885 + k * .01, b = r.lastElementChild;
+            r.classList.toggle('on', q > s);
+            if (b.dataset.n) b.textContent = Math.round(+b.dataset.n * easeOut(seg(q, s, s + .02))) + (b.dataset.s || '');
+          });
+        }
+
+        setup();
+        if (document.fonts) document.fonts.load('48px customFont').then(setup).catch(() => {});
+        let rt;
+        addEventListener('resize', () => {
+          clearTimeout(rt);
+          rt = setTimeout(() => {
+            // ignore the mobile URL bar showing/hiding
+            if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 120) return;
+            setup();
+          }, 150);
+        });
+
+        let prevQ = 0, impactAt = -1, lastY = scrollY, vel = 0, qs = 0;
+        const t0 = performance.now();
+        function frame(now) {
+          requestAnimationFrame(frame);
+          const r = sec.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) return;
+          const t = (now - t0) / 1000;
+          vel = vel * .85 + Math.abs(scrollY - lastY) / innerHeight * 60 * .15;
+          lastY = scrollY;
+          const qt = clamp(-r.top / (sec.offsetHeight - innerHeight));
+          qs += (qt - qs) * (reduce ? 1 : .1);
+          if (Math.abs(qt - qs) < 1e-4) qs = qt;
+          const q = qs;
+          if (q >= .83 && prevQ < .83) impactAt = t;
+          if (q < .83) impactAt = -1;
+          prevQ = q;
+          draw(q, t, vel, impactAt < 0 ? -1 : t - impactAt);
+        }
+        requestAnimationFrame(frame);
+      })();
+    </script>
+    <script>
+      // Prologue: a sealed scroll unrolls, tells the story, rolls shut and collapses into the star the hands catch.
+      (function () {
+        const sec = document.getElementById('prologue');
+        if (!sec) return;
+        const scroll = document.getElementById('pro-scroll');
+        const paper = scroll.querySelector('.ps-paper');
+        const inner = scroll.querySelector('.ps-inner');
+        const seal = scroll.querySelector('.ps-seal');
+        const star = document.getElementById('pro-star');
+        const hint = document.getElementById('pro-hint');
+        const cv = document.getElementById('pro-dust');
+        const g = cv.getContext('2d');
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+        const seg = (q, a, b) => clamp((q - a) / (b - a));
+        const easeOut = t => 1 - Math.pow(1 - t, 3);
+        const easeIn = t => t * t * t;
+
+        // each line keeps an invisible full copy so the paper never reflows while typing
+        const lines = [...scroll.querySelectorAll('.ps-l')].map(el => {
+          const t = el.dataset.t;
+          el.innerHTML = `<span class="ghost">${t}</span><span class="typed"></span>`;
+          return { t, typed: el.querySelector('.typed'), shown: -1 };
+        });
+        const caret = document.createElement('span');
+        caret.className = 'ps-caret';
+
+        const LINE0 = .24, LINE1 = .74, per = (LINE1 - LINE0) / lines.length;
+        function typeLines(p) {
+          let active = -1;
+          lines.forEach((l, k) => {
+            const a = LINE0 + k * per, n = Math.round(seg(p, a, a + per * .75) * l.t.length);
+            if (n !== l.shown) { l.typed.textContent = l.t.slice(0, n); l.shown = n; }
+            if (n > 0 && p < LINE1 + .05) active = k;
+          });
+          if (active >= 0) lines[active].typed.appendChild(caret); else caret.remove();
+        }
+
+        let W = 1, H = 1;
+        const motes = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), v: .01 + Math.random() * .03, ph: Math.random() * 6.28, s: Math.random() < .2 ? 2 : 1 }));
+        function size() {
+          const PX = innerWidth < 700 ? 3 : 4;
+          W = cv.width = Math.ceil(innerWidth / PX); H = cv.height = Math.ceil(innerHeight / PX);
+        }
+        addEventListener('resize', size); size();
+
+        let qs = 0, last = performance.now();
+        function frame(now) {
+          requestAnimationFrame(frame);
+          const r = sec.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) return;
+          const dt = Math.min(.05, (now - last) / 1000); last = now;
+          const q = clamp(-r.top / (sec.offsetHeight - innerHeight));
+          qs += (q - qs) * (reduce ? 1 : .12);
+          if (Math.abs(q - qs) < 1e-4) qs = q;
+          const p = qs, t = now / 1000;
+
+          // seal cracks and flies off
+          const sb = seg(p, .06, .11);
+          seal.style.opacity = 1 - sb;
+          seal.style.transform = `translateY(${-60 * easeIn(sb)}px) rotate(${sb * -140}deg) scale(${1 + sb * .6})`;
+
+          // unroll, then roll shut
+          const full = inner.offsetHeight;
+          const open = easeOut(seg(p, .10, .24)) * (1 - easeIn(seg(p, .79, .88)));
+          paper.style.height = Math.round(full * open) + 'px';
+          typeLines(p);
+
+          // the closed scroll collapses into a single point of light
+          const c = seg(p, .86, .94);
+          const bob = reduce ? 0 : Math.sin(t * 1.6) * 6 * (1 - c);
+          scroll.style.transform = `translateY(${bob}px) scale(${1 - .95 * easeIn(c)})`;
+          scroll.style.opacity = 1 - seg(p, .9, .945);
+          const sa = seg(p, .89, .93) * (1 - seg(p, .975, 1));
+          star.style.opacity = sa;
+          star.style.transform = `scale(${1 + (reduce ? 0 : .35 * Math.sin(t * 5)) + 1.5 * seg(p, .93, .975)})`;
+          hint.style.opacity = (1 - seg(p, .02, .07)) * .9;
+
+          // warm dust, pulled toward the scroll as it collapses
+          g.clearRect(0, 0, W, H);
+          const glow = seg(p, .1, .2) * (1 - seg(p, .86, .95));
+          for (const m of motes) {
+            m.y -= m.v * dt; if (m.y < -.02) { m.y = 1.02; m.x = Math.random(); }
+            m.ph += dt * 1.5;
+            const pull = easeIn(c);
+            const x = ((m.x + Math.sin(m.ph) * .01) * (1 - pull) + .5 * pull) * W;
+            const y = (m.y * (1 - pull) + .5 * pull) * H;
+            g.globalAlpha = (.15 + .5 * glow) * (.5 + .5 * Math.abs(Math.sin(m.ph))) * (1 - seg(p, .93, .96));
+            g.fillStyle = m.s > 1 ? '#f6c87a' : '#d2b27a';
+            g.fillRect(Math.round(x), Math.round(y), m.s, m.s);
+          }
+          g.globalAlpha = 1;
+        }
+        requestAnimationFrame(frame);
       })();
     </script>
   </body>
