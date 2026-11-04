@@ -545,35 +545,11 @@
                       </li>
                       <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
                         <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myBrandingScore:</strong> Cut AI image-generation cost by 77% (about ₹125 to ₹29 per full audit) by benchmarking cheaper models against real client logos and moving every image call from Gemini to FLUX via OpenRouter.</span>
+                        <span><strong>myBrandingScore:</strong> Cut AI image costs 77% (₹125 to ₹29 per audit) by moving to FLUX, ran image calls in parallel (48s to 6s), and fixed scoring and credit-leak bugs.</span>
                       </li>
                       <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
                         <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myBrandingScore:</strong> Parallelised AI image calls and optimised large uploads: Logo Survival dropped from 48s to 6s, Logo Treatment from 36s to 7s, and a 5000px logo went from 56s and 3.7 GB of memory to 4.3s and 0.76 GB.</span>
-                      </li>
-                      <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
-                        <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myBrandingScore:</strong> Fixed scoring bugs that produced wrong verdicts (inflated overall score, legibility checks passing 9px logos, faulty blur, contrast and colour checks, broken dark-SVG handling) and rebuilt the Stamp Test in code, with no AI cost.</span>
-                      </li>
-                      <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
-                        <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myBrandingScore:</strong> Closed credit and billing leaks: an unlimited free-credit loop, credits kept on early cancellation, duplicate paid image calls after retries, and tests that spent real credits. Also fixed stuck jobs, failed-module regeneration and a dozen report-page UI issues.</span>
-                      </li>
-                      <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
-                        <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myUXScore:</strong> Fixed competitor analysis so empty tabs no longer appear and the AI scores only what is visible in the screenshots, not what it recalls about famous sites. Added a backup browser retry for sites that Browserless refuses, and closed Browserbase sessions after use.</span>
-                      </li>
-                      <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
-                        <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myUXScore:</strong> Hardened the audit queue: no duplicate runs, hung audits stopped after 20 minutes, finished audits protected from being overwritten, and failed report sections now show a clear message instead of loading forever.</span>
-                      </li>
-                      <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
-                        <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myUXScore:</strong> Secured plans and access: Pro expiry with a 3-day grace period, enforced monthly limits, idempotent payment webhooks, per-user API key scoping, private uploaded images, a password-protected admin queue, and no login tokens in the console.</span>
-                      </li>
-                      <li class="flex gap-4 items-start font-raleway text-sm md:text-lg leading-relaxed text-theme-text/80">
-                        <span class="text-theme-brand font-sans mt-1 text-sm shrink-0">❖</span>
-                        <span><strong>myUXScore:</strong> Shipped product polish: new 404 and error screens, accessibility summaries, dashboard rename and favicon editing, embed widget fixes, and password setup for guest signups. Led a full parallel-reviewer audit of the codebase with follow-up regression checks.</span>
+                        <span><strong>myUXScore:</strong> Grounded competitor analysis in what screenshots actually show, hardened the audit queue, and secured billing, Pro expiry and API access.</span>
                       </li>
                     </ul>
                     <div class="flex flex-wrap items-center gap-2 mb-4">
