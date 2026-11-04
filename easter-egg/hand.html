@@ -65,7 +65,7 @@
       .a2c-next b { animation: rc-blink 1s steps(1) infinite; }
       @media (prefers-reduced-motion: reduce) { #act2-cap .rc-caret, .a2-label.next .nm, .a2c-next b { animation: none; } }
       #pro-dust { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
-      #pro-scroll { position: relative; width: min(560px, 88vw); z-index: 2; will-change: transform, opacity; }
+      #pro-scroll { position: relative; width: min(680px, 90vw); z-index: 2; will-change: transform, opacity; }
       .ps-rod { position: relative; z-index: 2; height: 26px; margin: 0 18px; border: 3px solid #4b3621;
         background: linear-gradient(to bottom, #f7ead0 0 5px, #ead4a4 5px 13px, #d2b27a 13px 18px, #a8834c 18px 100%); }
       .ps-rod::before, .ps-rod::after { content: ''; position: absolute; top: -9px; width: 15px; height: 38px; border: 3px solid #3a2616;
@@ -79,7 +79,11 @@
       .ps-l .ghost { visibility: hidden; }
       .ps-l .typed { position: absolute; inset: 0; }
       .ps-head { text-align: center; font-size: clamp(24px, 3.4vw, 34px); color: #7a2e1f; margin-bottom: 18px; }
-      .ps-line { font-size: clamp(16px, 2.1vw, 21px); line-height: 1.35; }
+      .ps-line { font-size: calc(clamp(15px, 2.1vw, 21px) * var(--fit, 1)); line-height: 1.35; }
+      .ps-sub { font-size: calc(clamp(17px, 2.3vh, 22px) * var(--fit, 1)); color: #7a2e1f; margin: 14px 0 6px; }
+      .ps-proj { font-size: calc(clamp(15px, 2vh, 19px) * var(--fit, 1)); color: #4b3621; text-decoration: underline; text-underline-offset: 3px; margin: 8px 0 4px; }
+      .ps-q { font-size: calc(clamp(13px, 1.9vh, 17px) * var(--fit, 1)); line-height: 1.3; margin-bottom: 6px; padding-left: 14px; text-indent: -14px; }
+      .ps-q::before { content: '\2022 '; }
       .ps-last { color: #7a2e1f; margin-top: 16px; }
       .ps-caret { display: inline-block; width: .45em; height: .1em; background: #7a2e1f; margin-left: 3px; animation: rc-blink .7s steps(1) infinite; }
       .ps-seal { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; z-index: 3;
@@ -120,7 +124,7 @@
         </section>
 
         <!-- Prologue: the sealed scroll -->
-        <div id="prologue" class="relative" style="height:1000vh">
+        <div id="prologue" class="relative" style="height:1500vh">
           <div id="pro-stage" class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center" style="background:#000">
             <canvas id="pro-dust" aria-hidden="true"></canvas>
             <div id="pro-scroll">
@@ -128,11 +132,20 @@
               <div class="ps-paper">
                 <div class="ps-inner">
                   <p class="ps-head ps-l" data-t="The Scroll of Sahil"></p>
-                  <p class="ps-line ps-l" data-t="In a land of demos that broke the moment real users arrived,"></p>
-                  <p class="ps-line ps-l" data-t="a builder took the quest nobody wanted:"></p>
-                  <p class="ps-line ps-l" data-t="not just make it work, but keep it working."></p>
-                  <p class="ps-line ps-l" data-t="Trained in the old arts of Django, retrieval and agents."></p>
-                  <p class="ps-line ps-l" data-t="Six hundred trials solved. One hackathon crown."></p>
+                  <p class="ps-line ps-l" data-t="Most AI demos dazzle on stage, then break the day real users arrive."></p>
+                  <p class="ps-line ps-l" data-t="Sahil builds the other kind: systems engineered to endure."></p>
+                  <p class="ps-line ps-l" data-t="Retrieval pipelines, agentic workflows and backends that keep working."></p>
+                  <p class="ps-line ps-l" data-t="Forged in Django. Sharpened by 600+ problems solved."></p>
+                  <p class="ps-sub ps-l" data-t="AI Product Intern, Monsoonfish"></p>
+                  <p class="ps-proj ps-l" data-t="myBrandingScore"></p>
+                  <p class="ps-q ps-l" data-t="Cut AI image costs by 77%, from Rs 125 to Rs 29 per audit, by moving to FLUX."></p>
+                  <p class="ps-q ps-l" data-t="Parallelised generation: Logo Survival 48s to 6s, a 5000px upload 56s to 4.3s."></p>
+                  <p class="ps-q ps-l" data-t="Fixed scoring bugs that skewed verdicts, and sealed credit leaks that minted free credits."></p>
+                  <p class="ps-q ps-l" data-t="Rebuilt the Stamp Test in code, drawn like real ink, at zero AI cost."></p>
+                  <p class="ps-proj ps-l" data-t="myUXScore"></p>
+                  <p class="ps-q ps-l" data-t="Grounded competitor analysis in what the screenshots actually show."></p>
+                  <p class="ps-q ps-l" data-t="Hardened the audit queue: no duplicate runs, hung jobs stopped after 20 minutes."></p>
+                  <p class="ps-q ps-l" data-t="Locked down billing and access: Pro expiry, idempotent webhooks, scoped API keys."></p>
                   <p class="ps-line ps-l" data-t="But a scroll can only tell so much."></p>
                   <p class="ps-line ps-l ps-last" data-t="The rest must be shown."></p>
                 </div>
@@ -965,8 +978,12 @@
         function size() {
           const PX = innerWidth < 700 ? 3 : 4;
           W = cv.width = Math.ceil(innerWidth / PX); H = cv.height = Math.ceil(innerHeight / PX);
+          // shrink the text if the unrolled scroll would be taller than the screen
+          scroll.style.setProperty('--fit', 1);
+          scroll.style.setProperty('--fit', clamp((innerHeight * .84 - 70) / inner.offsetHeight, .5, 1).toFixed(3));
         }
         addEventListener('resize', size); size();
+        if (document.fonts) document.fonts.ready.then(size);
 
         let qs = 0, last = performance.now();
         function frame(now) {
